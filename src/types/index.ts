@@ -50,6 +50,8 @@ export type BaseComponentClass<
 > = React.ComponentClass<ReplaceProps<As, BaseComponentProps<As> & P>>;
 
 
+export type BreakPoints = "sm"|"md"|"lg"|"xl"|"xxl"
+
 export type Variant =
     | 'primary'
     | 'secondary'

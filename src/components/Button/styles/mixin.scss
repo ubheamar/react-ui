@@ -94,7 +94,6 @@
       @if ($background != null) {
         background-color: $background;
       }
-
       @if ($border != null) {
         border-color: $border;
       }

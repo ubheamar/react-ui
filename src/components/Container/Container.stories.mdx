@@ -1,0 +1,46 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { Container } from "./Container";
+
+<Meta title="Layout/Container" component={Container} />
+
+
+
+# Containers
+
+Containers are a fundamental building block of Bootstrap that contain, pad, and align your content within a given device or viewport.
+
+# How they work
+
+Containers are the most basic layout element in Bootstrap and are required when using our default grid system. Containers are used to contain, pad, and (sometimes) center the content within them. While containers can be nested, most layouts do not require a nested container.
+
+## Bootstrap comes with three different containers:
+
+1. Default container, which sets a max-width at each responsive breakpoint
+2. The fluid container, which is width: 100% at all breakpoints
+3. The breakpoint container, which is width: 100% until the specified breakpoint
+
+### Example
+export const Template = (args) => (
+    <Container {...args}>Content goes here</Container>
+);
+
+<Canvas>
+    <Story name="Example">{Template.bind({})}</Story>
+</Canvas>
+
+### Default Container
+<Canvas>
+    <Story name="Default" args={{type:undefined}}>{Template.bind({})}</Story>
+</Canvas>
+
+###
+
+### Fluid Container
+<Canvas>
+    <Story name="Fluid" args={{ type:"fluid" }} >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+###
+

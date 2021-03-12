@@ -6,6 +6,7 @@ import clsx from "clsx";
 export interface ButtonProps extends BaseComponentPropsWithChildren {
   /**
    *Button variant
+   * @type 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'
    * */
   variant?: Variant;
   /*
@@ -15,6 +16,7 @@ export interface ButtonProps extends BaseComponentPropsWithChildren {
 
   /**
    * How large should the button be?
+   * @type "sm" | "lg" | undefined
    */
   size?: "sm" | "lg";
   /**

@@ -3,7 +3,7 @@ import { Button, ButtonProps } from "./Button";
 import { Meta, Story } from "@storybook/react/types-6-0";
 
 export default {
-  title: "Core/Button/SimpleButton",
+  title: "Component/Button",
   component: Button,
   argTypes: {},
 } as Meta;

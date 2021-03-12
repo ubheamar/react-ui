@@ -1,0 +1,177 @@
+// Black color
+$black: #000000 !default;
+
+// White color
+$white: #ffffff !default;
+
+// Gray colors
+$gray-100: #f3f6f9 !default;
+$gray-200: #ebedf3 !default;
+$gray-300: #e4e6ef !default;
+$gray-400: #d1d3e0 !default;
+$gray-500: #b5b5c3 !default;
+$gray-600: #7e8299 !default;
+$gray-700: #5e6278 !default;
+$gray-800: #3f4254 !default;
+$gray-900: #181c32 !default;
+
+// Dark colors
+$dark: $gray-900 !default;
+$dark-75: $gray-800 !default;
+$dark-65: $gray-700 !default;
+$dark-50: $gray-600 !default;
+$dark-25: $gray-400 !default;
+
+// Text muted
+$text-muted: $gray-500 !default;
+
+// Bootstrap standard & extended colors
+// Dark colors
+//$dark: $dark !default;
+$dark-hover: darken($dark, 3%) !default;
+$dark-light: $gray-400 !default;
+$dark-inverse: $white !default;
+
+// Primary colors
+$primary: #3699ff !default;
+$primary-hover: #187de4 !default;
+$primary-light: #e1f0ff !default;
+$primary-inverse: $white !default;
+
+// Secondary colors
+$secondary: $gray-300 !default;
+$secondary-hover: darken($gray-300, 4%) !default;
+$secondary-light: $gray-200 !default;
+$secondary-inverse: $dark-75 !default;
+
+// Success colors
+$success: #1bc5bd !default;
+$success-hover: #0bb7af !default;
+$success-light: #c9f7f5 !default;
+$success-inverse: $white !default;
+
+// Inco colors
+$info: #8950fc !default;
+$info-hover: #7337ee !default;
+$info-light: #eee5ff !default;
+$info-inverse: $white !default;
+
+// Warning colors
+$warning: #ffa800 !default;
+$warning-hover: #ee9d01 !default;
+$warning-light: #fff4de !default;
+$warning-inverse: $white !default;
+
+// Danger colors
+$danger: #f64e60 !default;
+$danger-hover: #ee2d41 !default;
+$danger-light: #ffe2e5 !default;
+$danger-inverse: $white !default;
+
+// Light colors
+$light: $gray-100 !default;
+$light-hover: $gray-300 !default;
+$light-light: $gray-100 !default;
+$light-inverse: $gray-600 !default;
+
+// White colors
+$white: $white !default;
+$white-hover: $gray-100 !default;
+$white-light: $white !default;
+$white-inverse: $dark-75 !default;
+
+// Bootstrap theme colors
+$theme-colors: (
+        "white": $white,
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark,
+) !default;
+
+// Extended hover colors for Bootstrap theme colors
+$theme-hover-colors: (
+        "white": $white-hover,
+        "primary": $primary-hover,
+        "secondary": $secondary-hover,
+        "success": $success-hover,
+        "info": $info-hover,
+        "warning": $warning-hover,
+        "danger": $danger-hover,
+        "light": $light-hover,
+        "dark": $dark-hover,
+) !default;
+
+// Extended inverse colors for Bootstrap theme colors
+$theme-inverse-colors: (
+        "white": $white-inverse,
+        "primary": $primary-inverse,
+        "secondary": $secondary-inverse,
+        "success": $success-inverse,
+        "info": $info-inverse,
+        "warning": $warning-inverse,
+        "danger": $danger-inverse,
+        "light": $light-inverse,
+        "dark": $dark-inverse,
+) !default;
+
+// Extended outline colors for Bootstrap theme colors
+$theme-outline-inverse-colors: (
+        "white": $white,
+        "primary": $primary,
+        "secondary": $dark-75,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $dark-75,
+        "dark": $dark,
+) !default;
+
+// Extended light colors for Bootstrap theme colors
+$theme-light-colors: (
+        "white": $white-light,
+        "primary": $primary-light,
+        "secondary": $secondary-light,
+        "success": $success-light,
+        "info": $info-light,
+        "warning": $warning-light,
+        "danger": $danger-light,
+        "light": $light-light,
+        "dark": $dark-light,
+) !default;
+
+// Extended shadow colors for Bootstrap theme colors
+$theme-shadow-colors: (
+        "white": $dark,
+        "primary": $primary,
+        "secondary": $dark,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $dark,
+        "dark": $dark,
+) !default;
+
+// Extended theme text colors
+$theme-text-colors: (
+        "white": $white,
+        "primary": $primary,
+        "secondary": $dark,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": light,
+        "dark": $dark,
+        "dark-75": $dark-75,
+        "dark-65": $dark-65,
+        "dark-50": $dark-50,
+        "dark-25": $dark-25,
+        "muted": $text-muted,
+) !default;
