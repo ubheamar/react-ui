@@ -1,6 +1,6 @@
-import { Button } from "./components/Button/Button";
-import { Col } from "./components/Column/Column";
-import { Container } from "./components/Container/Container";
-import { Row } from "./components/Row/Row";
+import Button from "./components/button";
 
-export { Button, Container, Row, Col };
+export { Button };
+
+export type { LayoutProps } from './components/layout';
+export { default as Layout } from './components/layout';

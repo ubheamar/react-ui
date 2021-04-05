@@ -1,4 +1,5 @@
 /*Coming from react-bootstrap types*/
+
 import React from "react";
 
 export type Omit<T, U> = Pick<T, Exclude<keyof T, keyof U>>;
@@ -50,7 +51,7 @@ export type BaseComponentClass<
 > = React.ComponentClass<ReplaceProps<As, BaseComponentProps<As> & P>>;
 
 
-export type BreakPoints = "sm"|"md"|"lg"|"xl"|"xxl"
+/*export type BreakPoints = "sm"|"md"|"lg"|"xl"|"xxl"
 
 export type Variant =
     | 'primary'
@@ -62,6 +63,8 @@ export type Variant =
     | 'dark'
     | 'light'
     | string;
+
+
 export type ButtonVariant =
     | Variant
     | 'link'
@@ -84,3 +87,4 @@ export type Color =
     | 'light'
     | 'white'
     | 'muted';
+*/

@@ -1,7 +1,9 @@
 import React, { forwardRef, ReactNode } from "react";
 
-import { BaseComponentPropsWithChildren, Variant } from "../../types";
+
 import clsx from "clsx";
+import {Variant} from "react-bootstrap/types";
+import {BaseComponentPropsWithChildren} from "../../types";
 
 export interface ButtonProps extends BaseComponentPropsWithChildren {
   /**
@@ -84,11 +86,10 @@ const Button = forwardRef<"button", ButtonProps>(
       <Component {...props} className={classNames} type={type} ref={ref}>
         {icon && <span className="svg-icon">{icon}</span>}
         {label && label}
-
         {children}
       </Component>
     );
   }
 );
 
-export { Button };
+export default Button;
