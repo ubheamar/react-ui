@@ -1,0 +1,62 @@
+//
+// Layout Config
+//
+
+// Root Font Sizes
+$root-font-size: 13px; // Root font size for desktop mode
+$root-font-size-lg: 13px; // Root font size for tablet mode
+$root-font-size-md: 12px; // Root font size for mobile mode
+$page-padding: 1.56rem;
+
+//layout config
+$layout-config: (
+  default: (
+    bg-color: #eef0f8,
+    font-color: $body-color,
+  ),
+);
+
+$header-config: (
+  default: (
+    bg-color: $body-bg,
+    font-color: $body-color,
+  ),
+  //Desktop mode
+  desktop:
+    (
+      // Default Mode
+      default:
+        (
+          height: 65px,
+        ),
+      // Fixed Mode
+      fixed:
+        (
+          zindex: 97,
+          height: 65px,
+        ),
+    ),
+  // Tablet & Mobile Modes
+  tablet-and-mobile:
+    (
+      // Default Mode
+      default:
+        (
+          height: 55px,
+        ),
+      // Fixed Mode
+      fixed:
+        (
+          zindex: 97,
+          height: 55px,
+        ),
+    ),
+);
+
+//sider config
+$sider-config: (
+  default: (
+    bg-color: $primary,
+    font-color: $white,
+  ),
+);

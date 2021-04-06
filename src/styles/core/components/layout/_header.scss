@@ -1,0 +1,37 @@
+.layout-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: get($header-config, default, bg-color);
+  color: get($header-config, default, font-color);
+  position: relative;
+  z-index: 2;
+  // Fixed Header Mode
+  &.layout-header-fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+}
+// Desktop Mode
+@include media-breakpoint-up(lg) {
+  .layout-header {
+    height: get($header-config, desktop, default, height);
+    // Fixed Header Mode
+    &.layout-header-fixed {
+      height: get($header-config, desktop, fixed, height);
+      z-index: get($header-config, desktop, fixed, zindex);
+    }
+  }
+}
+// Tablet & Mobile Modes
+@include media-breakpoint-down(lg) {
+  .layout-header {
+    height: get($header-config, tablet-and-mobile, default, height);
+    // Fixed Header Mode
+    &.layout-header-fixed {
+      height: get($header-config, tablet-and-mobile, fixed, height);
+      z-index: get($header-config, tablet-and-mobile, fixed, zindex);
+    }
+  }
+}

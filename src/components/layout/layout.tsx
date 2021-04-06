@@ -56,6 +56,7 @@ const BasicLayout: React.FC<BasicPropsWithTagName> = props => {
     const [siders, setSiders] = React.useState<string[]>([]);
     const {prefixCls,  className, children, hasSider, tagName: Tag, ...others } = props;
     const classString = clsx( prefixCls,
+        {[`${prefixCls}-has-sider`]: typeof hasSider === 'boolean' ? hasSider : siders.length > 0},
         className,
     );
 

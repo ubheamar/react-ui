@@ -1,11 +1,12 @@
 import React, { forwardRef, ReactNode } from "react";
 
-
 import clsx from "clsx";
-import {Variant} from "react-bootstrap/types";
-import {BaseComponentPropsWithChildren} from "../../types";
+import { Variant } from "react-bootstrap/types";
+import { BaseComponentPropsWithChildren } from "../../types";
 
-export interface ButtonProps extends BaseComponentPropsWithChildren {
+export interface ButtonProps
+  extends React.HTMLAttributes<HTMLElement>,
+    BaseComponentPropsWithChildren {
   /**
    *Button variant
    * @type 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'
@@ -47,6 +48,11 @@ export interface ButtonProps extends BaseComponentPropsWithChildren {
    * Button icon
    * */
   icon?: ReactNode;
+
+  /**
+   * Icon span class
+   * */
+  iconSpanClass?: string;
 }
 
 /**
@@ -67,6 +73,7 @@ const Button = forwardRef<"button", ButtonProps>(
       type = "button",
       as: Component = "button",
       className,
+      iconSpanClass,
       children,
       ...props
     }: ButtonProps,
@@ -84,7 +91,9 @@ const Button = forwardRef<"button", ButtonProps>(
     );
     return (
       <Component {...props} className={classNames} type={type} ref={ref}>
-        {icon && <span className="svg-icon">{icon}</span>}
+        {icon && (
+          <span className={clsx("svg-icon", iconSpanClass)}>{icon}</span>
+        )}
         {label && label}
         {children}
       </Component>

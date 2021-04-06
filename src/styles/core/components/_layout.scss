@@ -1,0 +1,30 @@
+@import "layout/base";
+@import "layout/header";
+@import "layout/content";
+
+.layout {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+  background-color: get($layout-config, default, bg-color);
+  color: get($layout-config, default, font-color);
+
+  &.layout-has-sider {
+    flex-direction: row;
+  }
+}
+
+/*.layout-header{
+  display: flex;
+  flex:0 0 auto;
+  padding: $navbar-padding-y $navbar-padding-x;
+
+}*/
+
+.layout-sider {
+  position: relative;
+  transition: all 0.2s;
+  background-color: get($sider-config, default, bg-color);
+  color: get($sider-config, default, font-color);
+}

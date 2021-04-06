@@ -1,0 +1,9 @@
+//
+// Text
+//
+@each $name, $color in $theme-text-colors {
+  // Base color
+  .text-#{$name} {
+    color: $color !important;
+  }
+}
