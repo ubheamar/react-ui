@@ -23,6 +23,9 @@ $svg-icon-sizes: (
 $body-bg: $white !default;
 $body-color: $gray-900 !default;
 
+$component-bg: $body-bg;
+$component-color: $body-color;
+
 // Components
 //
 // Define common padding and border radius sizes and more.
@@ -96,8 +99,55 @@ $card-border-radius: $border-radius !default;
 $card-header-height: 4.375rem !default; // Custom variable
 $card-title-font-size: 1.275rem;
 
+//Menu
+/*$menu-bg: #1e1e2d;
+$menu-color: #a2a3b7;*/
+$menu-font-size: $font-size-base;
+
+$menu-item-padding: 9px 25px;
+$menu-item-active-bg: #1b1b28;
+$menu-item-active-color: $white;
+
+$menu-item-selected-bg: $primary;
+$menu-item-selected-color: $primary-inverse;
+
+$menu-icon-color: #494b74;
+$menu-icon-active-color: $primary;
+$menu-icon-selected-color: $primary-inverse;
+$menu-icon-font-size: 1.1rem;
+
+/*$menu-inline-toplevel-item-height: 40px;
+$menu-item-height: 40px;
+$menu-item-group-height: $line-height-base;
+$menu-collapsed-width: 80px;
+
+$menu-popup-bg: $primary;
+$menu-item-color: $primary-inverse;
+$menu-inline-submenu-bg: $primary;
+$menu-highlight-color: $primary-inverse;
+$menu-highlight-danger-color: $danger;
+$menu-item-active-bg: $primary-hover;
+$menu-item-active-color: $primary-inverse;
+$menu-item-active-danger-bg: $danger-hover;
+$menu-item-active-border-width: 3px;
+$menu-item-group-title-color: $secondary;
+$menu-item-vertical-margin: 4px;
+$menu-item-font-size: $font-size-base;
+$menu-item-boundary-margin: 8px;
+$menu-item-padding: 9px 25px;
+$menu-horizontal-line-height: 46px;
+$menu-icon-margin-right: 10px;
+$menu-icon-size: $menu-item-font-size;
+$menu-icon-size-lg: $font-size-lg;
+$menu-item-group-title-font-size: $menu-item-font-size;*/
+
 // Options
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-shadows: true !default;
+
+//animations
+$ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+$ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);

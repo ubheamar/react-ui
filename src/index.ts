@@ -8,6 +8,10 @@ export { Button };
 export type { LayoutProps } from "./components/layout";
 export { default as Layout } from "./components/layout";
 
+//SubMenuProps,
+export type { MenuProps, MenuItemProps, SubMenuProps } from "./components/menu";
+export { default as Menu } from "./components/menu";
+
 export { Container };
 export type { ContainerProps };
 

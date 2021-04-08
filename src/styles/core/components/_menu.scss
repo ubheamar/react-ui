@@ -1,0 +1,150 @@
+//TODO other modes of menus only inline mode available
+$menu-prefix-cls: "menu";
+.#{$menu-prefix-cls} {
+  margin: 0;
+  padding: 0.9em 0;
+  background: get($sider-config, default, bg-color);
+  color: get($sider-config, default, font-color);
+  font-size: $menu-font-size;
+  box-shadow: $box-shadow;
+  transition: background 0.3s, width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  outline: none;
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &-item,
+  &-submenu-title {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    align-items: stretch;
+    margin: 0;
+    padding: $menu-item-padding;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &-label {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      font-weight: $font-weight-normal;
+      font-size: $font-size-base;
+      text-transform: initial;
+      overflow: hidden;
+    }
+    &-icon {
+      color: $menu-icon-color;
+      font-size: $menu-icon-font-size;
+      display: flex;
+      align-items: center;
+      flex: 0 0 2.18rem;
+
+      & svg {
+        height: 1.43rem;
+        width: 1.43rem;
+      }
+    }
+  }
+  //Item hover effect
+  &-item {
+    &-active {
+      background: $menu-item-active-bg;
+      color: $menu-item-active-color;
+
+      & .#{$menu-prefix-cls}-item-icon {
+        color: $menu-icon-active-color;
+      }
+    }
+
+    &-selected {
+      background: $menu-item-selected-bg;
+      color: $menu-item-selected-color;
+
+      & .#{$menu-prefix-cls}-item-icon {
+        color: $menu-icon-selected-color;
+      }
+    }
+  }
+
+  &-submenu {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+
+    //Arrow
+    &-arrow {
+      transform: translateY(-50%);
+      transition: transform 0.3s $ease-in-out;
+
+      &::before,
+      &::after {
+        position: absolute;
+        width: 6px;
+        height: 1.5px;
+        background-color: currentColor;
+        border-radius: 2px;
+        transition: background 0.3s $ease-in-out, transform 0.3s $ease-in-out,
+          top 0.3s $ease-in-out, color 0.3s $ease-in-out;
+        content: "";
+      }
+      &::before {
+        transform: rotate(45deg) translateY(-2.5px);
+      }
+      &::after {
+        transform: rotate(-45deg) translateY(2.5px);
+      }
+    }
+
+    &-inline &-arrow {
+      &::before {
+        transform: rotate(-45deg) translateX(2.5px);
+      }
+      &::after {
+        transform: rotate(45deg) translateX(-2.5px);
+      }
+    }
+    &-open > &-title &-arrow {
+      transform: translateY(-2px);
+      &::after {
+        transform: rotate(-45deg) translateX(-2.5px);
+      }
+      &::before {
+        transform: rotate(45deg) translateX(2.5px);
+      }
+    }
+
+    //Submenu hover effect
+    &-active,
+    &-open {
+      background: $menu-item-active-bg;
+      color: $menu-item-active-color;
+
+      & .#{$menu-prefix-cls}-item-icon {
+        color: $menu-icon-active-color;
+      }
+
+      &-selected {
+        background: $menu-item-selected-bg;
+        color: $menu-item-selected-color;
+
+        & .#{$menu-prefix-cls}-item-icon {
+          color: $menu-icon-selected-color;
+        }
+      }
+    }
+  }
+
+  &-hidden {
+    display: none;
+  }
+
+  &-inline {
+    box-shadow: none;
+  }
+}

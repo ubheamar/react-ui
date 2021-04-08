@@ -1,6 +1,7 @@
 @import "layout/base";
 @import "layout/header";
 @import "layout/content";
+@import "layout/sider";
 
 .layout {
   display: flex;
@@ -21,10 +22,3 @@
   padding: $navbar-padding-y $navbar-padding-x;
 
 }*/
-
-.layout-sider {
-  position: relative;
-  transition: all 0.2s;
-  background-color: get($sider-config, default, bg-color);
-  color: get($sider-config, default, font-color);
-}

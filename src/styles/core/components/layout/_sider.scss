@@ -1,0 +1,12 @@
+.layout-sider {
+  position: relative;
+  transition: all 0.2s;
+  background-color: get($sider-config, default, bg-color);
+  color: get($sider-config, default, font-color);
+
+  &.layout-sider-zero-width {
+    > * {
+      overflow: hidden;
+    }
+  }
+}
