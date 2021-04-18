@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode } from "react";
 
-import clsx from "clsx";
+import classNames from "classnames";
 import { Variant } from "react-bootstrap/types";
 import { BaseComponentPropsWithChildren } from "../../types";
 
@@ -79,7 +79,7 @@ const Button = forwardRef<"button", ButtonProps>(
     }: ButtonProps,
     ref
   ) => {
-    const classNames = clsx(
+    const classNamesButton = classNames(
       "btn",
       icon && !label && !children && `btn-icon`,
       variantType ? `btn-${variantType}-${variant}` : `btn-${variant}`,
@@ -90,9 +90,9 @@ const Button = forwardRef<"button", ButtonProps>(
       className
     );
     return (
-      <Component {...props} className={classNames} type={type} ref={ref}>
+      <Component {...props} className={classNamesButton} type={type} ref={ref}>
         {icon && (
-          <span className={clsx("svg-icon", iconSpanClass)}>{icon}</span>
+          <span className={classNames("svg-icon", iconSpanClass)}>{icon}</span>
         )}
         {label && label}
         {children}

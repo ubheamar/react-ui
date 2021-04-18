@@ -116,30 +116,24 @@ $menu-icon-active-color: $primary;
 $menu-icon-selected-color: $primary-inverse;
 $menu-icon-font-size: 1.1rem;
 
-/*$menu-inline-toplevel-item-height: 40px;
-$menu-item-height: 40px;
-$menu-item-group-height: $line-height-base;
-$menu-collapsed-width: 80px;
+//Table
+$table-bg: transparent;
+$table-accent-bg: $gray-200;
+$table-hover-bg: $gray-300;
+$table-active-bg: $table-hover-bg;
+$table-border-color: $gray-200;
+$table-cell-padding-x: 0.75rem;
+$table-cell-padding-y: $table-cell-padding-x;
+$table-cell-padding-x-sm: 0.3rem;
+$table-cell-padding-y-sm: $table-cell-padding-x-sm;
 
-$menu-popup-bg: $primary;
-$menu-item-color: $primary-inverse;
-$menu-inline-submenu-bg: $primary;
-$menu-highlight-color: $primary-inverse;
-$menu-highlight-danger-color: $danger;
-$menu-item-active-bg: $primary-hover;
-$menu-item-active-color: $primary-inverse;
-$menu-item-active-danger-bg: $danger-hover;
-$menu-item-active-border-width: 3px;
-$menu-item-group-title-color: $secondary;
-$menu-item-vertical-margin: 4px;
-$menu-item-font-size: $font-size-base;
-$menu-item-boundary-margin: 8px;
-$menu-item-padding: 9px 25px;
-$menu-horizontal-line-height: 46px;
-$menu-icon-margin-right: 10px;
-$menu-icon-size: $menu-item-font-size;
-$menu-icon-size-lg: $font-size-lg;
-$menu-item-group-title-font-size: $menu-item-font-size;*/
+$table-th-color: $text-muted;
+$table-th-bg: $gray-100;
+$table-th-hover-bg: $gray-200;
+$table-th-font-size: 0.9rem;
+$table-th-font-weight: 600;
+$table-th-letter-spacing: 0.1rem;
+$table-th-text-transform: uppercase;
 
 // Options
 //
