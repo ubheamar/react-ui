@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Button from "../button";
 
 interface NoRecordsFoundProps {
-  entities: {}[];
+  entities: {}[] | undefined;
   loading: boolean;
 }
 
@@ -14,7 +14,7 @@ export const NoRecordsFound: FC<NoRecordsFoundProps> = ({
   const entityList = entities === null ? [] : entities;
   return (
     <Fragment>
-      {entityList.length === 0 && entities !== null && !loading && (
+      {entityList?.length === 0 && entities !== null && !loading && (
         <div className="d-flex justify-content-center align-items-center">
           No records found
         </div>
@@ -24,7 +24,7 @@ export const NoRecordsFound: FC<NoRecordsFoundProps> = ({
 };
 
 interface PleaseWaitProps {
-  entities: {}[];
+  entities: {}[] | undefined;
   loading: boolean;
 }
 
@@ -32,7 +32,7 @@ export const PleaseWait: FC<PleaseWaitProps> = ({ entities, loading }) => {
   const entityList = entities === null ? [] : entities;
   return (
     <Fragment>
-      {entityList.length === 0 && entities !== null && loading && (
+      {entityList?.length === 0 && entities !== null && loading && (
         <div className="d-flex justify-content-center align-items-center">
           Please wait...
         </div>

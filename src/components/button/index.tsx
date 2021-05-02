@@ -1,8 +1,10 @@
 import React, { forwardRef, ReactNode } from "react";
 
 import classNames from "classnames";
-import { Variant } from "react-bootstrap/types";
 import { BaseComponentPropsWithChildren } from "../../types";
+import { ButtonVariant, TextVariant } from "../../utils/types";
+import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import ConditionalWrapper from "../../utils/ConditionalWrapper";
 
 export interface ButtonProps
   extends React.HTMLAttributes<HTMLElement>,
@@ -11,11 +13,23 @@ export interface ButtonProps
    *Button variant
    * @type 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'
    * */
-  variant?: Variant;
+  variant?: ButtonVariant;
   /*
    * Button variant type
+   * @type 'outline' | 'bg'
    * */
-  variantType?: "outline" | "light";
+  variantType?: "outline" | "bg";
+
+  textVariant?: TextVariant;
+
+  iconVariant?: TextVariant;
+
+  /*Button active variant*/
+  activeVariant?: ButtonVariant;
+
+  activeTextVariant?: TextVariant;
+
+  activeIconVariant?: TextVariant;
 
   /**
    * How large should the button be?
@@ -53,6 +67,10 @@ export interface ButtonProps
    * Icon span class
    * */
   iconSpanClass?: string;
+
+  loading?: boolean;
+
+  tooltip?: string | ReactNode;
 }
 
 /**
@@ -62,8 +80,13 @@ export interface ButtonProps
 const Button = forwardRef<"button", ButtonProps>(
   (
     {
-      variant = "primary",
+      variant,
       variantType,
+      textVariant,
+      iconVariant,
+      activeVariant,
+      activeTextVariant,
+      activeIconVariant,
       size,
       label,
       disabled,
@@ -75,6 +98,8 @@ const Button = forwardRef<"button", ButtonProps>(
       className,
       iconSpanClass,
       children,
+      loading,
+      tooltip,
       ...props
     }: ButtonProps,
     ref
@@ -82,23 +107,62 @@ const Button = forwardRef<"button", ButtonProps>(
     const classNamesButton = classNames(
       "btn",
       icon && !label && !children && `btn-icon`,
-      variantType ? `btn-${variantType}-${variant}` : `btn-${variant}`,
+      variantType === "outline" && `btn-outline btn-outline-dashed`,
+      variant
+        ? variantType
+          ? `btn-${variantType}-${variant}`
+          : `btn-${variant}`
+        : "",
+      iconVariant && `btn-icon-${textVariant}`,
+      textVariant && `text-color-${textVariant}`,
+      activeVariant && `btn-active-${activeVariant}`,
+      activeIconVariant && `btn-active-icon-${activeIconVariant}`,
+      activeTextVariant && `btn-active-text-${activeTextVariant}`,
       size && `btn-${size}`,
       disabled && `disabled`,
       active && `active`,
       design && `btn-${design}`,
       className
     );
+
     return (
-      <Component {...props} className={classNamesButton} type={type} ref={ref}>
-        {icon && (
-          <span className={classNames("svg-icon", iconSpanClass)}>{icon}</span>
+      <ConditionalWrapper
+        condition={!!tooltip}
+        wrapper={(children) => (
+          <OverlayTrigger
+            overlay={<Tooltip id="button-tooltip">{tooltip}</Tooltip>}
+          >
+            {children}
+          </OverlayTrigger>
         )}
-        {label && label}
-        {children}
-      </Component>
+      >
+        <Component
+          {...props}
+          className={classNamesButton}
+          type={type}
+          ref={ref}
+        >
+          {icon && (
+            <span className={classNames("svg-icon", iconSpanClass)}>
+              {icon}
+            </span>
+          )}
+
+          {label && label}
+          {children}
+          {loading && (
+            <Spinner
+              animation="border"
+              size="sm"
+              className="align-middle ms-2"
+            />
+          )}
+        </Component>
+      </ConditionalWrapper>
     );
   }
 );
+
+Button.displayName = "Button";
 
 export default Button;

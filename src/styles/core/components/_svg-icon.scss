@@ -3,13 +3,15 @@
 //
 
 .svg-icon {
-  @include svg-icon-size(get($svg-icon-sizes, md));
+  line-height: 1;
+
+  @include svg-icon-size(get($font-sizes, 5));
   @include svg-icon-color($text-muted);
 
   // Theme colors
   @each $name, $color in $theme-text-colors {
     &.svg-icon-#{$name} {
-      @include svg-icon-color($color, true);
+      @include svg-icon-color($color);
     }
   }
 
@@ -19,7 +21,7 @@
       $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
       // Sizes
-      @each $name, $value in $svg-icon-sizes {
+      @each $name, $value in $font-sizes {
         &.svg-icon#{$infix}-#{$name} {
           @include svg-icon-size($value, true);
         }

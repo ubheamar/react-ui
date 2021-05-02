@@ -1,16 +1,25 @@
-import React, { FC, useEffect, useMemo, Fragment, useCallback } from "react";
+import React, {
+  FC,
+  useEffect,
+  useMemo,
+  Fragment,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 
 import {
-  Column as RCTableColumn,
+  Column,
   useFilters,
   usePagination,
   useRowSelect,
   useSortBy,
   useTable,
   Row,
-  useBlockLayout,
-  useFlexLayout,
   useGlobalFilter,
+  SortingRule,
+  Filters,
+  TableInstance,
 } from "react-table";
 import { Table as BsTable } from "react-bootstrap";
 
@@ -19,19 +28,21 @@ import {
   NoRecordsFound,
   PleaseWait,
 } from "./TableHelper";
-import { PageSize } from "../paginator";
-import {
-  ArrowDownShort,
-  ArrowUpShort,
-  Filter as BsFilterIcon,
-} from "react-bootstrap-icons";
+import Paginator, { PageSize } from "../paginator";
+import { ArrowDownShort, ArrowUpShort } from "react-bootstrap-icons";
 import classNames from "classnames";
+import buildQueryString from "../../utils/buildQueryString";
+import { BaseRefForwardingComponent } from "../../types";
+import { TableFilterPopupProps } from "./TableFilterPopup";
 
 export interface TableChangeParams {
-  page: Page;
-  sort?: String;
-  filter: Filter;
+  pageSize?: number;
+  pageIndex?: number;
+  sorts?: SortingRule<{}>[];
+  filters?: Filters<{}>;
+  search?: string;
 }
+/*
 export interface Page {
   number: number;
   size: number;
@@ -39,19 +50,14 @@ export interface Page {
 export interface Filter {
   search: string;
 }
-type CustomColumnFields<D> = {
-  filterList?: object[];
-};
-
-export type Column<D extends object = {}> = RCTableColumn<D> &
-  CustomColumnFields<D>;
+*/
 
 export interface TableProps {
   columns: Column<{}>[];
-  data: {}[];
-  onTableChange?: (params: TableChangeParams) => void;
+  data: {}[] | undefined;
+  onTableChange?: (params: TableChangeParams, url: string) => void;
   loading: boolean;
-  totalRecords?: number;
+  totalRecords?: number | undefined;
   serverSideOperations?: boolean;
   pageSizeList?: PageSize[];
   onSelectionChange?: (
@@ -61,148 +67,136 @@ export interface TableProps {
   showRecordsNotFound?: boolean;
   showLoadingIndicator?: boolean;
 }
-const Table: FC<TableProps> = ({
-  columns,
-  data,
-  serverSideOperations,
-  onTableChange,
-  loading,
-  totalRecords,
-  children,
-  showRecordsNotFound,
-  showLoadingIndicator,
-  pageSizeList,
-  onSelectionChange,
-}) => {
-  const tableInstance = useTable(
+type Table = BaseRefForwardingComponent<"table", TableProps>;
+
+const Table: Table = forwardRef(
+  (
     {
       columns,
       data,
-      // disableSortBy: true,
-      autoResetSelectedRows: true,
-      autoResetPage: false,
-      autoResetSortBy: false,
-      autoResetFilters: false,
-      manualPagination: serverSideOperations,
-      manualSortBy: serverSideOperations,
-      manualGlobalFilter: serverSideOperations,
-      manualFilters: serverSideOperations,
-      /*initialState: { pageIndex: 0, pageSize: 10, sortBy: [] },*/
-      pageCount: totalRecords,
+      serverSideOperations,
+      onTableChange,
+      loading,
+      totalRecords = 0,
+      children,
+      showRecordsNotFound,
+      showLoadingIndicator,
+      pageSizeList,
+      onSelectionChange,
     },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    useRowSelect,
-    (hooks) => {
-      onSelectionChange &&
-        hooks.visibleColumns.push((columns) => [
-          {
-            id: "selection",
-            Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <div>
-                <IndeterminateCheckbox
-                  {...getToggleAllPageRowsSelectedProps()}
-                />
-              </div>
-            ),
-            Cell: ({ row }) => (
-              <div>
-                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
-            ),
-            maxWidth: 32,
-          },
-          ...columns,
-        ]);
-    }
-  );
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    gotoPage,
-    setPageSize,
-    selectedFlatRows,
-    setGlobalFilter,
-    setFilter,
-    toggleSortBy,
-    state: {
-      pageIndex,
-      pageSize,
-      sortBy,
-      selectedRowIds,
-      globalFilter,
-      filters,
-    },
-  } = tableInstance;
+    ref
+  ) => {
+    const tableInstance: TableInstance = useTable(
+      {
+        columns,
+        // @ts-ignore
+        data,
+        // disableSortBy: true,
+        autoResetSelectedRows: true,
+        autoResetPage: false,
+        autoResetSortBy: false,
+        autoResetFilters: false,
+        manualPagination: serverSideOperations,
+        manualSortBy: serverSideOperations,
+        manualGlobalFilter: serverSideOperations,
+        manualFilters: serverSideOperations,
+        /*initialState: { pageIndex: 0, pageSize: 10, sortBy: [] },*/
+        pageCount: totalRecords,
+      },
+      useFilters,
+      useGlobalFilter,
+      useSortBy,
+      usePagination,
+      useRowSelect,
+      (hooks) => {
+        onSelectionChange &&
+          hooks.visibleColumns.push((columns) => [
+            {
+              id: "selection",
+              Header: ({ getToggleAllPageRowsSelectedProps }) => (
+                <div>
+                  <IndeterminateCheckbox
+                    {...getToggleAllPageRowsSelectedProps()}
+                  />
+                </div>
+              ),
+              Cell: ({ row }) => (
+                <div>
+                  <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+                </div>
+              ),
+              maxWidth: 32,
+            },
+            ...columns,
+          ]);
+      }
+    );
+    const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+      page,
+      prepareRow,
+      gotoPage,
+      setPageSize,
+      selectedFlatRows,
+      setGlobalFilter,
+      setFilter,
+      toggleSortBy,
+      state: {
+        pageIndex,
+        pageSize,
+        sortBy,
+        selectedRowIds,
+        globalFilter,
+        filters,
+      },
+    } = tableInstance;
 
-  const changePage = useCallback((pageNumber: number) => {
-    gotoPage(pageNumber - 1);
-  }, []);
-  const changePageSize = useCallback((pageSize: number) => {
-    setPageSize(pageSize);
-  }, []);
-  useEffect(() => {
-    if (onTableChange) {
-      let sort = "";
-      sortBy.forEach((item) => {
-        sort = sort + (item.desc ? "-" : "") + `${item.id},`;
-      });
-      let filterObject: any = {};
-      filters.forEach((filter) => {
-        filterObject[filter.id] = filter.value;
-      });
-      const params: TableChangeParams = {
-        page: {
-          number: pageIndex + 1,
-          size: pageSize,
-        },
-        sort: sort ? sort : undefined,
-        filter: {
+    useImperativeHandle(ref, () => tableInstance);
+
+    const changePage = useCallback((pageNumber: number) => {
+      gotoPage(pageNumber - 1);
+    }, []);
+    const changePageSize = useCallback((pageSize: number) => {
+      setPageSize(pageSize);
+    }, []);
+
+    useEffect(() => {
+      if (onTableChange) {
+        const params: TableChangeParams = {
+          pageSize,
+          pageIndex: pageIndex + 1,
+          sorts: sortBy,
+          filters,
           search: globalFilter,
-          ...filterObject,
-        },
-      };
-      onTableChange(params);
-    }
-  }, [onTableChange, pageIndex, pageSize, sortBy, globalFilter, filters]);
+        };
+        const url = buildQueryString(params);
+        return onTableChange(params, url);
+      }
+    }, [onTableChange, pageIndex, pageSize, sortBy, globalFilter, filters]);
 
-  useEffect(() => {
-    onSelectionChange && onSelectionChange(selectedRowIds, selectedFlatRows);
-  }, [selectedRowIds, onSelectionChange]);
-  // Render the UI for your table
-  return (
-    <Fragment>
-      <BsTable
-        {...getTableProps()}
-        hover
-        responsive
-        className="table table-thead-solid table-vertical-center overflow-hidden"
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                /*column.getSortByToggleProps()*/
-                <th
-                  {...column.getHeaderProps()}
-                  className={classNames(
-                    column.canFilter && "column-has-filter",
-                    column.canSort && "column-has-sort"
-                  )}
+    useEffect(() => {
+      onSelectionChange && onSelectionChange(selectedRowIds, selectedFlatRows);
+    }, [selectedRowIds, onSelectionChange]);
+    // Render the UI for your table
+    return (
+      <Fragment>
+        <div className="table-responsive">
+          <BsTable
+            {...getTableProps()}
+            hover
+            className="align-middle table-row-dashed fs-6 gy-5 gs-5"
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  {...headerGroup.getHeaderGroupProps()}
+                  className="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0"
                 >
-                  <div
-                    className={classNames(
-                      "d-flex table-column align-items-center"
-                    )}
-                  >
-                    <div
-                      className="table-column-sorter d-flex flex-grow-1 align-items-center"
-                      onClick={() => toggleSortBy(column.id)}
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       <span className="table-column-title">
                         {column.render("Header")}
@@ -217,66 +211,60 @@ const Table: FC<TableProps> = ({
                           </span>
                         )}
                       </span>
-                    </div>
-
-                    {column.canFilter && (
-                      <span
-                        className="icon-filter svg-icon svg-icon-sm text-muted ms-1"
-                        onClick={() => alert("filter")}
-                      >
-                        <BsFilterIcon />
-                      </span>
-                    )}
-                  </div>
-                </th>
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </BsTable>
-      {children}
-      {showRecordsNotFound && (
-        <NoRecordsFound loading={loading} entities={data} />
-      )}
-      {showLoadingIndicator && <PleaseWait loading={loading} entities={data} />}
-      {/*<Paginator
-        currentPage={pageIndex + 1}
-        showCount={5}
-        limit={pageSize}
-        totalCount={totalRecords}
-        onPage={changePage}
-        pageSizeList={pageSizeList!}
-        onPageSizeChange={changePageSize}
-        loading={loading}
-      />*/}
-    </Fragment>
-  );
-};
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </BsTable>
+        </div>
+        {children}
+        {showRecordsNotFound && (
+          <NoRecordsFound loading={loading} entities={data} />
+        )}
+        {showLoadingIndicator && (
+          <PleaseWait loading={loading} entities={data} />
+        )}
+        <Paginator
+          currentPage={pageIndex + 1}
+          showCount={5}
+          limit={pageSize}
+          totalCount={totalRecords}
+          onPage={changePage}
+          pageSizeList={pageSizeList!}
+          onPageSizeChange={changePageSize}
+          loading={loading}
+        />
+      </Fragment>
+    );
+  }
+);
 
 Table.defaultProps = {
   serverSideOperations: true,
   showRecordsNotFound: true,
   showLoadingIndicator: true,
-  /* pageSizeList: [
+  data: [],
+  pageSizeList: [
     { text: "10", value: 10 },
     { text: "15", value: 15 },
     { text: "20", value: 20 },
     { text: "25", value: 25 },
     { text: "50", value: 50 },
-  ],*/
+  ],
 };
 export default Table;
