@@ -187,6 +187,10 @@ $component-active-bg: $primary !default;
 $component-hover-bg: $primary-light !default;
 $component-hover-color: $primary !default;
 
+// Custom hover and active background colors
+$hover-bg: rgba($gray-100, 0.8) !default; // Custom variable(to remove)
+$active-bg: $hover-bg !default; // Custom variable(to remove)
+
 // Box shadow
 $box-shadow-xs: 0 0.25rem 0.5rem 0 rgba($black, 0.05);
 $box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba($black, 0.05) !default;
@@ -366,7 +370,7 @@ $font-sizes: (
   // 68.25px
   5hx: $font-size-base * 5.5,
   // 71.5px
-  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 $headings-margin-bottom: $spacer / 2 !default;
@@ -790,4 +794,54 @@ $custom-sizes: (
   75: 75%,
   100: 100%,
   auto: auto,
+) !default;
+
+// Menu
+$menu: (
+  dropdown: (
+    box-shadow: $dropdown-box-shadow,
+    z-index: 105,
+    background-color: $white,
+    border-radius: $border-radius,
+    animation: true,
+    animation-speed: 0.3s,
+    animation-move-offset: 0.75rem,
+  ),
+  accordion: (
+    indention: 1rem,
+    arrow-transition: transform 0.3s ease,
+  ),
+  item: (
+    self: (
+      padding-y: 0.15rem,
+      padding-x: 0,
+    ),
+  ),
+  link: (
+    self: (
+      padding-y: 0.65rem,
+      padding-x: 1rem,
+      bg-color: (
+        hover: $hover-bg,
+        show: $hover-bg,
+        active: $active-bg,
+      ),
+    ),
+    icon: (
+      width: 2rem,
+      space: 0.5rem,
+    ),
+    bullet: (
+      width: 1.25rem,
+      space: 0.5rem,
+    ),
+    badge: (
+      space: 0.5rem,
+    ),
+    arrow: (
+      height: 0.8rem,
+      width: 0.8rem,
+      space: 0.5rem,
+    ),
+  ),
 ) !default;
