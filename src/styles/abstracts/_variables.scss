@@ -187,10 +187,6 @@ $component-active-bg: $primary !default;
 $component-hover-bg: $primary-light !default;
 $component-hover-color: $primary !default;
 
-// Custom hover and active background colors
-$hover-bg: rgba($gray-100, 0.8) !default; // Custom variable(to remove)
-$active-bg: $hover-bg !default; // Custom variable(to remove)
-
 // Box shadow
 $box-shadow-xs: 0 0.25rem 0.5rem 0 rgba($black, 0.05);
 $box-shadow-sm: 0 0.1rem 1rem 0.25rem rgba($black, 0.05) !default;
@@ -370,7 +366,8 @@ $font-sizes: (
   // 68.25px
   5hx: $font-size-base * 5.5,
   // 71.5px
-  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  5tx: $font-size-base * 5.75
+    // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 $headings-margin-bottom: $spacer / 2 !default;
@@ -433,10 +430,10 @@ $input-btn-border-width: $border-width !default;
 // For each of Bootstrap's buttons, define text, background, and border color.
 
 $btn-padding-y: $input-btn-padding-y !default;
-$btn-padding-x: 1.5rem !default;
+$btn-padding-x: $input-btn-padding-x !default;
 $btn-font-family: $input-btn-font-family !default;
 $btn-font-size: $input-btn-font-size !default;
-$btn-font-weight: $font-weight-bold !default;
+$btn-font-weight: $font-weight-normal !default;
 $btn-line-height: $input-btn-line-height !default;
 $btn-white-space: null !default; // Set to `nowrap` to prevent text wrapping
 
@@ -471,114 +468,19 @@ $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 $btn-extended-variants: true !default; // Custom variable
 
 // Forms
-$form-label-margin-bottom: 0.5rem !default;
-$form-label-font-size: 1.05rem !default;
-$form-label-font-weight: 500 !default;
-$form-label-color: null !default;
-
-$form-text-margin-top: 0.5rem !default;
-$form-text-font-size: $font-size-sm !default;
-$form-text-color: $text-muted !default;
-
-$input-padding-y: $input-btn-padding-y !default;
-$input-padding-x: $input-btn-padding-x !default;
-$input-font-family: $input-btn-font-family !default;
-$input-font-size: $input-btn-font-size !default;
-$input-font-weight: $font-weight-bold !default;
-$input-line-height: $input-btn-line-height !default;
-
-$input-solid-bg: $gray-100 !default; // Custom variable
-$input-solid-bg-focus: darken($gray-100, 2%) !default; // Custom variable
-$input-solid-placeholder-color: $input-placeholder-color !default; // Custom variable
-$input-solid-color: $gray-700 !default; // Custom variable
-
-$input-bg: $white !default;
-$input-disabled-bg: $gray-200 !default;
-$input-readonly-bg: $input-bg !default; // Custom variable
-$input-disabled-border-color: null !default;
-
-$input-color: $body-color !default;
-$input-border-color: $gray-300 !default;
-$input-border-width: $input-btn-border-width !default;
-
-$input-border-radius: $btn-border-radius !default;
-$input-border-radius-sm: $btn-border-radius-sm !default;
-$input-border-radius-lg: $btn-border-radius-lg !default;
-
-$input-focus-border-color: $gray-400 !default;
-$input-focus-color: $input-color !default;
-
-$form-check-input-width: 1.75rem !default;
-$form-check-input-width-sm: 1.5rem !default;
-$form-check-input-width-lg: 2.25rem !default;
-$form-check-input-bg-size: 60% 60% !default; // Custom variable
-$form-check-min-height: $font-size-base * $line-height-base !default;
-$form-check-padding-start: $form-check-input-width + 0.5rem !default;
-$form-check-padding-left: $form-check-input-width + 0.5rem !default;
-$form-check-margin-bottom: 0.125rem !default;
-$form-check-label-color: null !default;
-$form-check-label-cursor: null !default;
-$form-check-transition: background-color 0.15s ease-in-out,
-  background-position 0.15s ease-in-out, border-color 0.15s ease-in-out,
-  box-shadow 0.15s ease-in-out !default;
-
-$form-check-input-active-filter: brightness(90%) !default;
-
-$form-check-input-bg: $body-bg !default;
-$form-check-input-bg-solid: $gray-200 !default; // Custom variable
-$form-check-input-border: 1px solid rgba(0, 0, 0, 0.25) !default;
-$form-check-input-border-radius: 0.45em !default;
-$form-check-radio-border-radius: 50% !default;
-$form-check-input-focus-border: $input-focus-border-color !default;
-$form-check-input-focus-box-shadow: none !default;
-
-$form-check-input-checked-color: $component-active-color !default;
-$form-check-input-checked-bg-color: $component-active-bg !default;
-$form-check-input-checked-border-color: $component-active-bg !default;
-$form-check-input-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 11' width='13' height='11' fill='none'><path d='M11.0426 1.02893C11.3258 0.695792 11.8254 0.655283 12.1585 0.938451C12.4917 1.22162 12.5322 1.72124 12.249 2.05437L5.51985 9.97104C5.23224 10.3094 4.72261 10.3451 4.3907 10.05L0.828197 6.88335C0.50141 6.59288 0.471975 6.09249 0.762452 5.7657C1.05293 5.43891 1.55332 5.40948 1.88011 5.69995L4.83765 8.32889L11.0426 1.02893Z' fill='#{$form-check-input-checked-color}'/></svg>") !default;
-$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$form-check-input-checked-color}'/></svg>") !default;
-
-$form-check-input-indeterminate-color: $component-active-color !default;
-$form-check-input-indeterminate-bg-color: $component-active-bg !default;
-$form-check-input-indeterminate-border-color: $component-active-bg !default;
-$form-check-input-indeterminate-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-indeterminate-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/></svg>") !default;
-
-$form-check-input-disabled-opacity: 0.5 !default;
-$form-check-label-disabled-opacity: $form-check-input-disabled-opacity !default;
-$form-check-btn-check-disabled-opacity: $btn-disabled-opacity !default;
-
-$form-switch-color: rgba(0, 0, 0, 0.25) !default;
-$form-switch-width: 3.25rem !default;
-$form-switch-height: 2.25rem !default; // Custom variable
-$form-switch-width-sm: 2.5rem !default; // Custom variable
-$form-switch-height-sm: 1.5rem !default; // Custom variable
-$form-switch-width-lg: 3.75rem !default; // Custom variable
-$form-switch-height-lg: 2.75rem !default; // Custom variable
-
-$form-switch-padding-start: $form-switch-width + 0.5rem !default;
-$form-switch-padding-left: $form-switch-width + 0.5rem !default;
-$form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>") !default;
-$form-switch-bg-image-solid: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$white}'/></svg>") !default;
-$form-switch-border-radius: $form-switch-width !default;
-
-$form-switch-focus-color: $input-focus-border-color !default;
-$form-switch-focus-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-focus-color}'/></svg>") !default;
-
-$form-switch-checked-color: $component-active-color !default;
-$form-switch-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-checked-color}'/></svg>") !default;
-$form-switch-checked-bg-position: right center !default;
-
-$form-check-inline-margin-right: 1rem !default;
-
-$input-group-addon-bg: $gray-100 !default;
-
-$form-select-indicator-color: $gray-600 !default;
-$form-select-border-radius: $border-radius !default;
 
 //Dropdown
+//$zindex-dropdown: 105;
+$dropdown-padding-y: 1rem !default;
 $dropdown-box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15) !default;
-$dropdown-border-radius: $border-radius !default;
+$dropdown-border-radius: 0.475rem !default;
 $dropdown-border-width: 0 !default;
+$dropdown-arrow-width: 6px !default;
+$dropdown-arrow-height: 6px !default;
+$dropdown-distance: $dropdown-arrow-width + 4px !default;
+$dropdown-animation: true;
+$dropdown-animation-speed: 0.3s;
+$dropdown-animation-move-offset: 0.75rem;
 
 // Card
 $card-box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05) !default; // card custom shadow
@@ -592,8 +494,18 @@ $card-header-py: 0.5rem !default; // Custom variable
 $card-header-height: 70px !default; // Custom variable
 
 //Menu
-/*$menu-bg: #1e1e2d;
-$menu-color: #a2a3b7;*/
+
+$menu-font-size: $font-size-base;
+
+$menu-item-padding-x: 1rem;
+$menu-item-padding-y: 0.65rem;
+
+$menu-arrow-margin: 0.5rem;
+$menu-arrow-width: 0.8rem;
+$menu-arrow-height: 0.8rem;
+/*
+$menu-bg: #1e1e2d;
+$menu-color: #a2a3b7;
 $menu-font-size: $font-size-base;
 
 $menu-item-padding: 9px 25px;
@@ -607,6 +519,7 @@ $menu-icon-color: #494b74;
 $menu-icon-active-color: $primary;
 $menu-icon-selected-color: $primary-inverse;
 $menu-icon-font-size: 1.1rem;
+*/
 
 //Table
 $table-cell-padding-y: 0.75rem !default;
@@ -649,7 +562,7 @@ $table-th-text-transform: uppercase;*/
 
 //Paginator
 
-$pagination-item-height: 2.5rem !default; // Custom variable
+/*$pagination-item-height: 2.5rem !default; // Custom variable
 $pagination-item-bg: $white !default; // Custom variable
 $pagination-item-space: 0.5rem !default; // Custom variable
 $pagination-font-weight: $font-weight-bold !default; // Custom variable
@@ -690,35 +603,7 @@ $pagination-disabled-border-color: transparent !default;
 
 $pagination-transition: color 0.15s ease-in-out,
   background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-  box-shadow 0.15s ease-in-out !default;
-
-// Popovers
-$popover-font-size: $font-size-sm !default;
-$popover-border-color: $white !default;
-$popover-border-radius: $border-radius !default;
-$popover-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15) !default;
-$popover-header-bg: $white !default;
-$popover-header-color: $dark !default;
-$popover-header-font-weight: 500 !default; // Custom variable
-$popover-header-font-size: 1rem !default; // Custom variable
-$popover-header-padding-y: 1rem !default;
-$popover-header-padding-x: 1.25rem !default;
-$popover-header-border-color: $gray-100 !default; // Custom variable
-$popover-body-color: $body-color !default;
-$popover-body-padding-y: 1rem !default;
-$popover-body-padding-x: 1.25rem !default;
-
-// Tooltips
-$tooltip-font-size: $font-size-sm !default;
-$tooltip-max-width: 200px !default;
-$tooltip-color: $dark-inverse !default;
-$tooltip-bg: $dark !default;
-$tooltip-border-radius: 3px !default;
-$tooltip-opacity: 1 !default;
-$tooltip-box-shadow: $popover-box-shadow !default; // Custom variable
-$tooltip-padding-y: 0.75rem !default;
-$tooltip-padding-x: 1rem !default;
-$tooltip-margin: 0 !default;
+  box-shadow 0.15s ease-in-out !default;*/
 
 //Forms
 $form-label-color: null;
@@ -735,16 +620,9 @@ $rt-text-color-default: $component-color !default;
 $rt-text-color-dark: theme-inverse-color(dark) !default;
 
 //Spinner
-
 $spinner-border-width: 0.185em !default;
 $spinner-animation-speed: 0.65s !default;
 $spinner-border-width-sm: 0.145em !default;
-
-//animations
-//TODO remove this animations & menu
-$ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
-$ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-$ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
 
 //scrollbar
 $scrollbar: (
@@ -794,54 +672,4 @@ $custom-sizes: (
   75: 75%,
   100: 100%,
   auto: auto,
-) !default;
-
-// Menu
-$menu: (
-  dropdown: (
-    box-shadow: $dropdown-box-shadow,
-    z-index: 105,
-    background-color: $white,
-    border-radius: $border-radius,
-    animation: true,
-    animation-speed: 0.3s,
-    animation-move-offset: 0.75rem,
-  ),
-  accordion: (
-    indention: 1rem,
-    arrow-transition: transform 0.3s ease,
-  ),
-  item: (
-    self: (
-      padding-y: 0.15rem,
-      padding-x: 0,
-    ),
-  ),
-  link: (
-    self: (
-      padding-y: 0.65rem,
-      padding-x: 1rem,
-      bg-color: (
-        hover: $hover-bg,
-        show: $hover-bg,
-        active: $active-bg,
-      ),
-    ),
-    icon: (
-      width: 2rem,
-      space: 0.5rem,
-    ),
-    bullet: (
-      width: 1.25rem,
-      space: 0.5rem,
-    ),
-    badge: (
-      space: 0.5rem,
-    ),
-    arrow: (
-      height: 0.8rem,
-      width: 0.8rem,
-      space: 0.5rem,
-    ),
-  ),
 ) !default;

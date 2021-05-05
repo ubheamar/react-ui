@@ -1,0 +1,38 @@
+.menu {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &-item,
+  &-submenu-title {
+    display: flex;
+    align-items: center;
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    transition: none;
+    outline: none;
+  }
+}
+
+.menu-submenu-arrow {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-left: $menu-arrow-margin;
+  width: $menu-arrow-width;
+  height: $menu-arrow-height;
+
+  &:after {
+    display: block;
+    width: 100%;
+    content: " ";
+    @include svg-bg-icon(arrow-bottom, $text-muted);
+  }
+}
+
+// Center alignment
+.menu-center {
+  justify-content: center;
+}

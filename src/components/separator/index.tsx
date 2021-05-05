@@ -35,7 +35,7 @@ const Separator: Separator = forwardRef(
       className
     );
     return (
-      <Component classNames={classNamesComp} ref={ref} {...props}>
+      <Component className={classNamesComp} ref={ref} {...props}>
         {children}
       </Component>
     );

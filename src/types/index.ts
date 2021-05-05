@@ -50,6 +50,7 @@ export type BaseComponentClass<
   P = unknown
 > = React.ComponentClass<ReplaceProps<As, BaseComponentProps<As> & P>>;
 
+export const tuple = <T extends string[]>(...args: T) => args;
 
 /*export type BreakPoints = "sm"|"md"|"lg"|"xl"|"xxl"
 

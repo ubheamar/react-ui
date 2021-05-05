@@ -16,7 +16,7 @@ const { Consumer, Provider } = AppConfigContext;
 AppConfigContext.displayName = "AppConfigContext";
 
 export function useAppConfig() {
-  return useContext(AppConfigContext);
+  return useContext(AppConfigContext) as AppConfigProviderProps;
 }
 
 // @ts-ignore

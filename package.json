@@ -20,6 +20,7 @@
     "classnames": "^2.3.1",
     "node-sass": "^5.0.0",
     "query-string": "^7.0.0",
+    "rc-dropdown": "^3.2.0",
     "rc-menu": "^8.10.7",
     "rc-motion": "^2.4.1",
     "rc-select": "^12.1.10",

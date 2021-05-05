@@ -1,7 +1,7 @@
-@import "layout/base";
-@import "layout/header";
-@import "layout/content";
-@import "layout/sider";
+@import "base";
+@import "header";
+@import "content";
+@import "sider";
 
 .layout {
   display: flex;
@@ -15,10 +15,3 @@
     flex-direction: row;
   }
 }
-
-/*.layout-header{
-  display: flex;
-  flex:0 0 auto;
-  padding: $navbar-padding-y $navbar-padding-x;
-
-}*/

@@ -1,5 +1,5 @@
 import Container, { ContainerProps } from "react-bootstrap/Container";
-import Dropdown, { DropdownProps } from "react-bootstrap/Dropdown";
+//import Dropdown, { DropdownProps } from "react-bootstrap/Dropdown";
 import Card, { CardProps } from "react-bootstrap/Card";
 import Col, { ColProps } from "react-bootstrap/Col";
 import Form, { FormProps } from "react-bootstrap/Form";
@@ -17,6 +17,7 @@ import FilterBar, { FilterBarProps } from "./components/filterbar";
 import AppConfigProvider from "./components/config";
 import Select, { SelectProps } from "./components/select";
 import Separator, { SeparatorProps } from "./components/separator";
+import Dropdown, { DropdownProps } from "./components/dropdown";
 //import { useAppConfig } from "./components/config/AppConfigContext";
 
 /*import Table, { TableProps } from "antd/lib/table";*/
