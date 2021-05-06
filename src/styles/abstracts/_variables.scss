@@ -367,7 +367,7 @@ $font-sizes: (
   5hx: $font-size-base * 5.5,
   // 71.5px
   5tx: $font-size-base * 5.75
-    // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 $headings-margin-bottom: $spacer / 2 !default;
@@ -497,12 +497,18 @@ $card-header-height: 70px !default; // Custom variable
 
 $menu-font-size: $font-size-base;
 
-$menu-item-padding-x: 1rem;
+$menu-item-padding-x: 1.5rem;
 $menu-item-padding-y: 0.65rem;
+
+$menu-icon-width: 2rem;
+$menu-icon-space: 0.5rem;
 
 $menu-arrow-margin: 0.5rem;
 $menu-arrow-width: 0.8rem;
 $menu-arrow-height: 0.8rem;
+
+$submenu-z-index: 1050;
+$submenu-min-width: 10rem;
 /*
 $menu-bg: #1e1e2d;
 $menu-color: #a2a3b7;

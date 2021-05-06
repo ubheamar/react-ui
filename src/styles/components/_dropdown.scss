@@ -42,23 +42,23 @@
       position: absolute;
       display: block;
       z-index: 1;
-      width: math.sqrt(
+      /*width: math.sqrt(
           strip-unit($dropdown-arrow-width) * strip-unit($dropdown-arrow-width) *
             2
         ) * 1px;
       height: math.sqrt(
           strip-unit($dropdown-arrow-width) * strip-unit($dropdown-arrow-width) *
             2
-        ) * 1px;
+        ) * 1px;*/
       background: transparent;
       border-style: solid;
       transform: rotate(45deg);
-      border-width: (
+      /*  border-width: (
           math.sqrt(
               strip-unit($dropdown-arrow-width) *
                 strip-unit($dropdown-arrow-width) * 2
             ) / 2
-        ) * 1px;
+        ) * 1px;*/
     }
 
     //Arrow top placement
