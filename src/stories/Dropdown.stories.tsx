@@ -2,12 +2,12 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import Menu, { MenuProps } from "../components/menu";
 import { Gear } from "react-bootstrap-icons";
-import { Col } from "../index";
+import { Button, Col, Dropdown } from "../index";
 import { Row } from "react-bootstrap";
 
 export default {
-  title: "Component/Menu",
-  component: Menu,
+  title: "Component/Dropdown",
+  component: Dropdown,
 };
 
 const renderMenu = (args: MenuProps) => {
@@ -37,45 +37,19 @@ const renderMenu = (args: MenuProps) => {
 };
 
 const Template: Story<MenuProps> = (args) => {
-  const { mode, ...restProps } = args;
   return (
     <div>
-      <Row
-        className="bg-light mt-3"
-        style={{
-          width: "250px",
-        }}
-      >
-        {renderMenu({
+      <Dropdown
+        overlay={renderMenu({
           mode: "vertical",
-          ...restProps,
         })}
-      </Row>
-      <Row
-        className="bg-primary mt-3"
-        style={{
-          width: "250px",
-        }}
       >
-        {renderMenu({
-          mode: "inline",
-          ...restProps,
-        })}
-      </Row>
-      <Row className="bg-success mt-3">
-        {renderMenu({
-          mode: "horizontal",
-          ...restProps,
-        })}
-      </Row>
+        <Button>Button Dropdown</Button>
+      </Dropdown>
     </div>
   );
 };
 
 export const Basic = Template.bind({});
 
-Basic.args = {
-  mode: "vertical",
-  variant: "danger",
-  iconVariant: "text-success",
-};
+Basic.args = {};

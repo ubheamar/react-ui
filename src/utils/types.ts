@@ -31,5 +31,6 @@ export type TextColor =
   | "gray-800"
   | "gray-900";
 
-export type ButtonVariant = PrimaryColors | LightColors;
+export type ColorsVariant = PrimaryColors | LightColors;
+export type ButtonVariant = ColorsVariant;
 export type TextVariant = PrimaryColors | TextColor;

@@ -1,0 +1,52 @@
+@each $name, $color in $theme-text-colors {
+  .menu-#{$name} {
+    .menu-item {
+      //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+      @include menu-link-default-state($color, $color, $color, $color, null);
+    }
+  }
+  .menu-title-#{$name} {
+    .menu-item {
+      //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+      @include menu-link-default-state($color, null, null, null, null);
+    }
+  }
+  .menu-icon-#{$name} {
+    .menu-item {
+      //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+      @include menu-link-default-state(null, $color, null, null, null);
+    }
+  }
+  .menu-arrow-#{$name} {
+    .menu-item {
+      //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+      @include menu-link-default-state(null, null, null, $color, null);
+    }
+  }
+}
+
+// Default background states
+.menu-hover-bg {
+  .menu-item {
+    @include menu-link-hover-state(null, null, null, null, $menu-hover-bg);
+  }
+}
+
+.menu-show-bg {
+  .menu-item {
+    @include menu-link-show-state(null, null, null, null, $menu-show-bg);
+  }
+}
+
+.menu-active-bg {
+  .menu-item {
+    @include menu-link-active-state(null, null, null, null, $menu-active-bg);
+  }
+}
+.menu-state-bg {
+  .menu-item {
+    @include menu-link-hover-state(null, null, null, null, $menu-hover-bg);
+    @include menu-link-show-state(null, null, null, null, $menu-show-bg);
+    @include menu-link-active-state(null, null, null, null, $menu-active-bg);
+  }
+}

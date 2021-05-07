@@ -1,0 +1,39 @@
+@mixin menu-item-theme(
+  $title-color,
+  $icon-color,
+  $arrow-color,
+  $bg-color: null
+) {
+  @if ($bg-color != null) {
+    background-color: $bg-color;
+  }
+
+  @if ($title-color != null) {
+    color: $title-color;
+  }
+
+  @if ($icon-color != null) {
+    > .menu-item-icon.svg-icon {
+      color: $icon-color;
+    }
+  }
+  @if ($arrow-color!=null) {
+    > .menu-submenu-title > .menu-submenu-arrow:after {
+      /*rtl:begin:ignore*/
+      @include svg-bg-icon(arrow-end, $arrow-color);
+      /*rtl:end:ignore*/
+      [dir="rtl"] & {
+        @include svg-bg-icon(arrow-start, $arrow-color);
+      }
+    }
+  }
+}
+
+@mixin menu-item-arrow-rotate($angle, $angleRtl) {
+  transform: rotateZ($angle) #{"/*rtl:ignore*/"};
+  transition: transform 0.3s ease;
+
+  [direction="rtl"] & {
+    transform: rotateZ($angleRtl) #{"/*rtl:ignore*/"};
+  }
+}

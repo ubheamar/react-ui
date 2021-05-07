@@ -1,0 +1,191 @@
+.menu {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: $menu-bg;
+  color: $menu-color;
+  font-size: $menu-font-size;
+  box-shadow: $menu-box-shadow;
+
+  &#{&}-vertical,
+  &#{&}-vertical-left,
+  &#{&}-vertical-right,
+  &#{&}-inline {
+    flex-direction: column;
+  }
+  &#{&}-horizontal {
+    flex-direction: row;
+    box-shadow: none;
+  }
+  &.menu-root,
+  &.menu-inline {
+    box-shadow: none;
+  }
+
+  .menu-item,
+  .menu-submenu-title {
+    display: flex;
+    align-items: center;
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    outline: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .menu-item {
+    &:not(.menu-item-disabled).menu-item-active,
+    &.menu-item-selected {
+      @include menu-item-theme(
+        $menu-item-active-color,
+        $menu-icon-active-color,
+        $menu-item-active-color,
+        $menu-item-active-bg
+      );
+    }
+  }
+  .menu-submenu {
+    &:not(.menu-submenu-disabled).menu-submenu-active {
+      @include menu-item-theme(
+        $menu-item-active-color,
+        $menu-icon-active-color,
+        $menu-item-active-color,
+        $menu-item-active-bg
+      );
+    }
+  }
+
+  .menu-item-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .menu-item-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $menu-icon-width;
+    color: $menu-icon-color;
+    margin-right: $menu-icon-space #{"/*rtl:ignore*/"};
+    [dir="rtl"] & {
+      margin-left: $menu-icon-space #{"/*rtl:ignore*/"};
+    }
+  }
+
+  .menu-submenu-arrow {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-left: $menu-arrow-margin #{"/*rtl:ignore*/"};
+    width: $menu-arrow-width;
+    height: $menu-arrow-height;
+
+    [dir="rtl"] & {
+      margin-right: $menu-arrow-margin #{"/*rtl:ignore*/"};
+    }
+    &:after {
+      display: block;
+      width: 100%;
+      content: " ";
+      /*rtl:begin:ignore*/
+      @include svg-bg-icon(arrow-end, $text-muted);
+      /*rtl:end:ignore*/
+      [dir="rtl"] & {
+        @include svg-bg-icon(arrow-start, $text-muted);
+      }
+    }
+  }
+
+  &.menu-horizontal {
+    .menu-submenu-arrow:after {
+      @include menu-item-arrow-rotate(90deg, -90deg);
+    }
+  }
+  &.menu-vertical,
+  &.menu-vertical-left,
+  &.menu-vertical-right {
+    .menu-submenu-arrow:after {
+      // @include svg-bg-icon(arrow-end, $text-muted);
+    }
+  }
+  &.menu-inline {
+    .menu-submenu-arrow:after {
+    }
+  }
+
+  &.menu-sub.menu-inline {
+    background: $menu-inline-bg;
+    color: $menu-inline-color;
+  }
+}
+
+// Center alignment
+.menu-center {
+  justify-content: center;
+}
+
+.menu-submenu {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+
+  &.menu-submenu-open.menu-submenu-inline > &-title > &-arrow {
+    @include menu-item-arrow-rotate(90deg, -90deg);
+  }
+
+  & .menu {
+    min-width: $submenu-min-width;
+  }
+  &.menu-submenu-popup {
+    position: absolute;
+    z-index: $submenu-z-index;
+    @if ($menu-animation == true) {
+      animation: menu-animation-fade-in $menu-animation-speed ease 1,
+        menu-animation-move-up $menu-animation-speed ease 1;
+
+      &.menu-submenu-placement-topCenter,
+      &.menu-submenu-placement-topLeft,
+      &.menu-submenu-placement-topRight {
+        animation: menu-animation-fade-in $menu-animation-speed ease 1,
+          menu-animation-move-down $menu-animation-speed ease 1;
+      }
+    }
+  }
+}
+.menu-sub,
+.menu-submenu {
+  &.menu-hidden {
+    display: none;
+  }
+}
+
+// Menu animations
+@keyframes menu-animation-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes menu-animation-move-up {
+  from {
+    margin-top: $menu-animation-move-offset;
+  }
+  to {
+    margin-top: 0;
+  }
+}
+
+@keyframes menu-animation-move-down {
+  from {
+    margin-bottom: $menu-animation-move-offset;
+  }
+  to {
+    margin-bottom: 0;
+  }
+}
