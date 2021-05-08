@@ -1,9 +1,16 @@
 import React, { FC, useContext, useState } from "react";
+import { DirectionType } from "../config";
 
-import { MenuColorProps } from "./index";
+export type MenuTheme = "default" | string;
 
-export interface MenuContextType extends MenuColorProps {}
-const MenuContext = React.createContext<Partial<MenuContextType>>({});
+export interface MenuContextType {
+  inlineCollapsed: boolean;
+  theme?: MenuTheme;
+  direction?: DirectionType;
+}
+const MenuContext = React.createContext<Partial<MenuContextType>>({
+  inlineCollapsed: false,
+});
 MenuContext.displayName = "MenuContext";
 
 export default MenuContext;

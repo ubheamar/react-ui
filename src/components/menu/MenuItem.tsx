@@ -1,16 +1,122 @@
+//ref from antd
 import { Item, MenuItemProps as RcMenuItemProps } from "rc-menu";
-import React, { FC, isValidElement } from "react";
+import React, { createRef, FC, isValidElement } from "react";
 import classNames from "classnames";
-import { useMenuConfig } from "./MenuContext";
+import MenuContext, { MenuContextType, useMenuConfig } from "./MenuContext";
+import { SiderContext, SiderContextProps } from "../layout/Sider";
+import { cloneElement } from "../../utils/reactNode";
+import toArray from "rc-util/lib/Children/toArray";
+import {
+  Overlay,
+  OverlayTrigger,
+  Tooltip,
+  TooltipProps,
+} from "react-bootstrap";
 
-export interface MenuItemProps extends Omit<RcMenuItemProps, "mode"> {
-  mode?: "horizontal" | "vertical" | "inline";
-  itemIconSpanClass?: string;
+export interface MenuItemProps extends Omit<RcMenuItemProps, "title"> {
+  icon?: React.ReactNode;
+  danger?: boolean;
+  title?: React.ReactNode;
+  iconSpanClass?: string;
 }
 
-const MenuItem: FC<MenuItemProps> = ({
-  /*active,
-  isSelected,*/
+export default class MenuItem extends React.Component<MenuItemProps> {
+  static isMenuItem = true;
+  private menuRef = createRef<HTMLElement>();
+  renderItemChildren(inlineCollapsed: boolean | undefined) {
+    const { icon, iconSpanClass, children, level, rootPrefixCls } = this.props;
+    if (!icon || (isValidElement(children) && children.type === "span")) {
+      if (
+        children &&
+        inlineCollapsed &&
+        level === 1 &&
+        typeof children === "string"
+      ) {
+        return (
+          <div className={`${rootPrefixCls}-inline-collapsed-noicon`}>
+            {children.charAt(0)}
+          </div>
+        );
+      }
+      return children;
+    }
+    return <div className={`${rootPrefixCls}-item-content`}>{children}</div>;
+  }
+
+  renderItem = ({ siderCollapsed }: SiderContextProps) => {
+    const { level, className, children, rootPrefixCls } = this.props;
+    const { title, icon, iconSpanClass, danger, ...rest } = this.props;
+
+    return (
+      <MenuContext.Consumer>
+        {({ inlineCollapsed, direction }) => {
+          let tooltipTitle = title;
+          if (typeof title === "undefined") {
+            tooltipTitle = level === 1 ? children : "";
+          } else if (title === false) {
+            tooltipTitle = "";
+          }
+          const tooltipProps: TooltipProps = {
+            id: "menu-collapsed-tooltip",
+            children: tooltipTitle,
+          };
+
+          if (!siderCollapsed && !inlineCollapsed) {
+            tooltipProps.children = null;
+            tooltipProps.show = false;
+          }
+          const childrenLength = toArray(children).length;
+          return (
+            <>
+              <Overlay
+                target={this.menuRef}
+                show={tooltipProps.show}
+                placement={direction === "rtl" ? "left" : "right"}
+              >
+                <Tooltip id={tooltipProps.id}> {tooltipProps.children}</Tooltip>
+              </Overlay>
+              <Item
+                ref={this.menuRef}
+                {...rest}
+                className={classNames(
+                  {
+                    [`${rootPrefixCls}-item-danger`]: danger,
+                    [`${rootPrefixCls}-item-only-child`]:
+                      (icon ? childrenLength + 1 : childrenLength) === 1,
+                  },
+                  className
+                )}
+                title={title}
+              >
+                {icon && (
+                  <span
+                    className={classNames(
+                      `${rootPrefixCls}-item-icon svg-icon`,
+                      iconSpanClass
+                    )}
+                  >
+                    {cloneElement(icon, {
+                      className: classNames(
+                        isValidElement(icon) ? icon.props?.className : ""
+                      ),
+                    })}
+                  </span>
+                )}
+                {this.renderItemChildren(inlineCollapsed)}
+              </Item>
+            </>
+          );
+        }}
+      </MenuContext.Consumer>
+    );
+  };
+
+  render() {
+    return <SiderContext.Consumer>{this.renderItem}</SiderContext.Consumer>;
+  }
+}
+
+/*const MenuItem: FC<MenuItemProps> = ({
   rootPrefixCls,
   itemIcon,
   itemIconSpanClass,
@@ -19,57 +125,15 @@ const MenuItem: FC<MenuItemProps> = ({
   children,
   ...restProps
 }: MenuItemProps) => {
-  const {
-    variant,
-    bgColor,
-    textColor,
-    bgActiveColor,
-    textActiveColor,
-    iconActiveColor,
-    bgSelectedColor,
-    textSelectedColor,
-    iconSelectedColor,
-  } = useMenuConfig();
-  /*const menuItemClassNames = classNames(
-    className,
-    variant &&
-      `bg-${variant} hoverable text-inverse-${variant} text-hover-inverse-${variant}`
-  );*/
-  let menuItemClassBuilder = classNames(className);
-  /*console.log(`Active:${active}`);
-  if (active) {
-    menuItemClassBuilder += classNames(
-      variant && !bgActiveColor ? `hoverable` : `bg-${bgActiveColor}`,
-      variant && !textActiveColor
-        ? `text-hover-inverse-${variant}`
-        : `text-${textActiveColor}`
-    );
-  } else if (isSelected) {
-    menuItemClassBuilder += classNames(
-      variant && !bgSelectedColor
-        ? `bg-active-${variant} selected`
-        : `bg-${bgSelectedColor}`,
-      variant && !textSelectedColor
-        ? `text-active-inverse-${variant}`
-        : `text-${textSelectedColor}`
-    );
-  } else {
-    menuItemClassBuilder += classNames(
-      variant && !bgColor && `bg-${variant}`,
-      !variant && bgColor && `bg-${bgColor}`,
-      variant && !textColor && `text-inverse-${variant}`,
-      !variant && textColor && `text-${textColor}`
-    );
-  }*/
-  const menuItemClassNames = menuItemClassBuilder;
+  const {} = useMenuConfig();
+
+  const menuItemClassNames = classNames(className);
   const iconSpanClassNames = classNames(
     `svg-icon ${rootPrefixCls}-item-icon`,
     itemIconSpanClass
   );
   return (
     <Item
-      /*  active={active}
-      isSelected={isSelected}*/
       rootPrefixCls={rootPrefixCls}
       className={menuItemClassNames}
       title={title}
@@ -81,4 +145,4 @@ const MenuItem: FC<MenuItemProps> = ({
   );
 };
 MenuItem.defaultProps = {};
-export default MenuItem;
+export default MenuItem;*/

@@ -367,7 +367,7 @@ $font-sizes: (
   5hx: $font-size-base * 5.5,
   // 71.5px
   5tx: $font-size-base * 5.75
-    // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 $headings-margin-bottom: $spacer / 2 !default;
@@ -498,6 +498,7 @@ $card-header-height: 70px !default; // Custom variable
 $menu-font-size: $font-size-base;
 $menu-bg: $component-bg;
 $menu-color: $component-color;
+$menu-collapsed-width: 5rem;
 $menu-inline-bg: $light;
 $menu-inline-color: $component-color;
 $menu-box-shadow: $box-shadow;
@@ -505,12 +506,22 @@ $menu-animation: true;
 $menu-animation-speed: 0.3s;
 $menu-animation-move-offset: 0.3rem;
 
+$menu-group-padding-x: 0rem;
+$menu-group-padding-y: 0.65rem;
+$menu-group-title-padding-x: 1rem;
+$menu-group-title-padding-y: 0.65rem;
+$menu-group-title-font-size: $font-size-sm;
+$menu-group-title-font-weight: $font-weight-light;
+$menu-group-title-color: $menu-color;
+$menu-group-title-text-transform: uppercase;
+
 $menu-item-padding-x: 1.5rem;
 $menu-item-padding-y: 0.65rem;
 $menu-item-active-bg: $primary;
 $menu-item-active-color: $primary-inverse;
 $menu-item-selected-bg: $primary;
 $menu-item-selected-color: $primary-inverse;
+$menu-item-disabled-opacity: 0.6;
 
 $menu-icon-width: 2rem;
 $menu-icon-space: 0.5rem;
@@ -524,6 +535,7 @@ $menu-arrow-height: 0.5rem;
 
 $submenu-z-index: 1050;
 $submenu-min-width: 10rem;
+$submenu-border-radius: $border-radius;
 /*
 
 $menu-font-size: $font-size-base;

@@ -2,18 +2,25 @@
 import React, { FC, useContext, useState } from "react";
 import { toast, ToastPosition } from "react-toastify";
 
-interface AppConfigProviderProps {
+export type DirectionType = "ltr" | "rtl";
+
+export interface AppConfig {
   theme: string;
   toastPosition: ToastPosition;
-  rtl: boolean;
+  direction: DirectionType;
   setTheme: (theme: string) => void;
   setToastPosition: (position: ToastPosition) => void;
-  setRtl: (value: boolean) => void;
+  setDirection: (value: boolean) => void;
 }
+
+interface AppConfigProviderProps extends AppConfig {}
 
 const AppConfigContext = React.createContext({});
 const { Consumer, Provider } = AppConfigContext;
+
 AppConfigContext.displayName = "AppConfigContext";
+
+export const AppConfigConsumer = Consumer;
 
 export function useAppConfig() {
   return useContext(AppConfigContext) as AppConfigProviderProps;
@@ -25,7 +32,7 @@ function AppConfigProvider({ children }) {
   const [toastPosition, setToastPosition] = useState(
     toast.POSITION.BOTTOM_RIGHT
   );
-  const [rtl, setRtl] = useState(false);
+  const [direction, setDirection] = useState("ltr");
   return (
     <Provider
       value={{
@@ -33,8 +40,8 @@ function AppConfigProvider({ children }) {
         theme,
         setTheme,
         setToastPosition,
-        rtl,
-        setRtl,
+        direction,
+        setDirection,
       }}
     >
       {children}

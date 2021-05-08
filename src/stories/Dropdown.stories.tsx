@@ -1,7 +1,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import Menu, { MenuProps } from "../components/menu";
-import { Gear } from "react-bootstrap-icons";
+import {
+  App,
+  ClipboardCheck,
+  CreditCard,
+  Gear,
+  ShieldLock,
+} from "react-bootstrap-icons";
 import { Button, Col, Dropdown } from "../index";
 import { Row } from "react-bootstrap";
 
@@ -12,14 +18,24 @@ export default {
 
 const renderMenu = (args: MenuProps) => {
   return (
-    <Menu {...args}>
-      <Menu.Item key="settings" itemIcon={<Gear />}>
-        Settings
-      </Menu.Item>
-      <Menu.Item title="profile_title" key="profile" disabled>
+    <Menu prefix="menu" {...args}>
+      <Menu.ItemGroup title="Components">
+        <Menu.Item key="profile-name" icon={<Gear />}>
+          Profile
+        </Menu.Item>
+        <Menu.Item key="settings" icon={<Gear />}>
+          Settings
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item icon={<ShieldLock />} key="logout">
+          Logout
+        </Menu.Item>
+      </Menu.ItemGroup>
+
+      <Menu.Item icon={<App />} title="profile_title" key="profile" disabled>
         Profile
       </Menu.Item>
-      <Menu.SubMenu title="Subscription">
+      <Menu.SubMenu icon={<CreditCard />} title="Subscription">
         <Menu.Item key="referrals">Referrals</Menu.Item>
         <Menu.Item key="payment">Payment</Menu.Item>
         <Menu.Item key="billing">Billing</Menu.Item>
@@ -31,7 +47,10 @@ const renderMenu = (args: MenuProps) => {
           <Menu.Item key="dnd">Do not disturb</Menu.Item>
         </Menu.SubMenu>
       </Menu.SubMenu>
-      <Menu.Item key="logout">Logout</Menu.Item>
+      <Menu.SubMenu icon={<ClipboardCheck />} title="Career" disabled>
+        <Menu.Item key="applyonline">Apply-Online</Menu.Item>
+        <Menu.Item key="refer">Refer</Menu.Item>
+      </Menu.SubMenu>
     </Menu>
   );
 };
@@ -44,7 +63,7 @@ const Template: Story<MenuProps> = (args) => {
           mode: "vertical",
         })}
       >
-        <Button>Button Dropdown</Button>
+        <Button variant="light-primary">Button Dropdown</Button>
       </Dropdown>
     </div>
   );

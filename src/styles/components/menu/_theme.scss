@@ -1,0 +1,36 @@
+.menu-default {
+  @include menu-theme(
+    $menu-bg,
+    $menu-color,
+    $menu-icon-color,
+    $menu-item-active-bg,
+    $menu-item-active-color,
+    $menu-item-active-color,
+    $menu-item-active-color,
+    $menu-item-selected-bg,
+    $menu-item-selected-color,
+    $menu-item-selected-color,
+    $menu-item-selected-color,
+    $menu-inline-bg,
+    $menu-inline-color,
+    $menu-group-title-color
+  );
+}
+.menu-dark {
+  @include menu-theme(
+    #1e1e2d,
+    #9899ac,
+    #494b74,
+    #1b1b28,
+    $white,
+    $primary,
+    $white,
+    #1b1b28,
+    $white,
+    $primary,
+    $white,
+    $menu-inline-bg,
+    $menu-inline-color,
+    #4c4e6f
+  );
+}

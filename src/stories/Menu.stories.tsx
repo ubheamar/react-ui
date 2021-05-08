@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Story, Meta } from "@storybook/react";
 import Menu, { MenuProps } from "../components/menu";
-import { Gear } from "react-bootstrap-icons";
-import { Col } from "../index";
+import {
+  App,
+  ClipboardCheck,
+  CreditCard,
+  Gear,
+  ShieldLock,
+  TextLeft,
+} from "react-bootstrap-icons";
 import { Row } from "react-bootstrap";
+import { Button } from "../index";
 
 export default {
   title: "Component/Menu",
@@ -13,13 +20,23 @@ export default {
 const renderMenu = (args: MenuProps) => {
   return (
     <Menu {...args}>
-      <Menu.Item key="settings" itemIcon={<Gear />}>
-        Settings
-      </Menu.Item>
-      <Menu.Item title="profile_title" key="profile" disabled>
+      <Menu.ItemGroup title="Components">
+        <Menu.Item key="profile-name" icon={<Gear />}>
+          Profile
+        </Menu.Item>
+        <Menu.Item key="settings" icon={<Gear />}>
+          Settings
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item icon={<ShieldLock />} key="logout">
+          Logout
+        </Menu.Item>
+      </Menu.ItemGroup>
+
+      <Menu.Item icon={<App />} title="profile_title" key="profile" disabled>
         Profile
       </Menu.Item>
-      <Menu.SubMenu title="Subscription">
+      <Menu.SubMenu icon={<CreditCard />} title="Subscription">
         <Menu.Item key="referrals">Referrals</Menu.Item>
         <Menu.Item key="payment">Payment</Menu.Item>
         <Menu.Item key="billing">Billing</Menu.Item>
@@ -31,7 +48,10 @@ const renderMenu = (args: MenuProps) => {
           <Menu.Item key="dnd">Do not disturb</Menu.Item>
         </Menu.SubMenu>
       </Menu.SubMenu>
-      <Menu.Item key="logout">Logout</Menu.Item>
+      <Menu.SubMenu icon={<ClipboardCheck />} title="Career" disabled>
+        <Menu.Item key="applyonline">Apply-Online</Menu.Item>
+        <Menu.Item key="refer">Refer</Menu.Item>
+      </Menu.SubMenu>
     </Menu>
   );
 };
@@ -76,13 +96,60 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   mode: "vertical",
-  variant: undefined,
-  bgColor: "success",
-  textColor: undefined,
-  bgActiveColor: undefined,
-  textActiveColor: undefined,
-  iconActiveColor: undefined,
-  bgSelectedColor: undefined,
-  textSelectedColor: undefined,
-  iconSelectedColor: undefined,
+  theme: "dark",
+};
+
+const DynamicTemplate: Story<MenuProps> = (args) => {
+  let style =
+    args.mode != "horizontal"
+      ? {
+          width: "265px",
+        }
+      : undefined;
+
+  return <div style={style}>{renderMenu(args)}</div>;
+};
+
+export const VerticalMenu = DynamicTemplate.bind({});
+VerticalMenu.args = {
+  mode: "vertical",
+  theme: undefined,
+};
+export const InlineMenu = DynamicTemplate.bind({});
+InlineMenu.args = {
+  mode: "inline",
+  theme: undefined,
+};
+export const HorizontalMenu = DynamicTemplate.bind({});
+HorizontalMenu.args = {
+  mode: "horizontal",
+  theme: undefined,
+};
+
+const CollapsedMenuTemplate: Story<MenuProps> = (args) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapsed = useCallback(() => {
+    setCollapsed((prevState) => !prevState);
+  }, [setCollapsed]);
+  args.inlineCollapsed = collapsed;
+  return (
+    <div
+      style={{
+        width: "265px",
+      }}
+    >
+      <Button
+        variant="light-primary"
+        icon={<TextLeft />}
+        style={{ marginBottom: 16 }}
+        onClick={toggleCollapsed}
+      />
+      {renderMenu(args)}
+    </div>
+  );
+};
+export const CollapsibleMenu = CollapsedMenuTemplate.bind({});
+CollapsibleMenu.args = {
+  mode: "inline",
+  theme: undefined,
 };

@@ -3,10 +3,15 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  /* background: $menu-bg;
-  color: $menu-color;*/
   font-size: $menu-font-size;
   box-shadow: $menu-box-shadow;
+
+  /* ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }*/
 
   &#{&}-vertical,
   &#{&}-vertical-left,
@@ -18,9 +23,42 @@
     flex-direction: row;
     box-shadow: none;
   }
+  &.menu-inline-collapsed {
+    width: $menu-collapsed-width;
+    > .menu-item,
+    > .menu-submenu > .menu-submenu-title {
+      text-overflow: clip;
+
+      > .menu-item-content {
+        opacity: 0;
+        max-width: 0;
+        display: inline-block;
+      }
+
+      > .menu-submenu-arrow {
+        display: none;
+      }
+    }
+  }
+
   &.menu-root,
   &.menu-inline {
     box-shadow: none;
+  }
+
+  .menu-item-group {
+    padding: $menu-group-padding-y $menu-group-padding-x;
+
+    > .menu-item-group-title {
+      font-size: $menu-group-title-font-size;
+      font-weight: $menu-group-title-font-weight;
+      padding: $menu-group-title-padding-y $menu-group-title-padding-x;
+      text-transform: $menu-group-title-text-transform;
+    }
+    .menu-item-group-list {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   .menu-item,
@@ -29,30 +67,8 @@
     align-items: center;
     padding: $menu-item-padding-y $menu-item-padding-x;
     outline: none;
-    transition: background-color 0.2s ease;
+    // transition: background-color 0.2s ease;
   }
-
-  /*.menu-item {
-    &:not(.menu-item-disabled).menu-item-active,
-    &.menu-item-selected {
-      @include menu-item-theme(
-        $menu-item-active-color,
-        $menu-icon-active-color,
-        $menu-item-active-color,
-        $menu-item-active-bg
-      );
-    }
-  }
-  .menu-submenu {
-    &:not(.menu-submenu-disabled).menu-submenu-active {
-      @include menu-item-theme(
-        $menu-item-active-color,
-        $menu-icon-active-color,
-        $menu-item-active-color,
-        $menu-item-active-bg
-      );
-    }
-  }*/
 
   .menu-item-content {
     display: flex;
@@ -133,7 +149,10 @@
   }
   &.menu-submenu-popup {
     position: absolute;
+    padding: 0.2rem 0;
     z-index: $submenu-z-index;
+    border-radius: $submenu-border-radius;
+
     @if ($menu-animation == true) {
       animation: menu-animation-fade-in $menu-animation-speed ease 1,
         menu-animation-move-up $menu-animation-speed ease 1;

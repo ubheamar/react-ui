@@ -1,68 +1,81 @@
-import RcMenu, {
-  SubMenu as RcSubMenu,
-  SubMenuProps as RcSubMenuProps,
-} from "rc-menu";
+import RcMenu, { SubMenu as RcSubMenu } from "rc-menu";
 import React, { FC, isValidElement, useCallback } from "react";
-import { cloneElement } from "../../utils/reactNode";
 import classNames from "classnames";
-import { ChevronRight } from "react-bootstrap-icons";
-import { useMenuConfig } from "./MenuContext";
+import MenuContext from "./MenuContext";
+import omit from "rc-util/lib/omit";
 
-export interface SubMenuProps extends Omit<RcSubMenuProps, ""> {}
+interface TitleEventEntity {
+  key: string;
+  domEvent: Event;
+}
 
-const SubMenu: FC<SubMenuProps> = ({
-  className,
-  rootPrefixCls,
-  title,
-  itemIcon,
-  children,
-  ...restProps
-}: SubMenuProps) => {
-  const { variant } = useMenuConfig();
-  const renderTitle = useCallback(() => {
-    const iconSpanClassNames = classNames(
-      "svg-icon",
-      rootPrefixCls && `${rootPrefixCls}-item-icon`
-    );
+export interface SubMenuProps {
+  rootPrefixCls?: string;
+  className?: string;
+  disabled?: boolean;
+  level?: number;
+  title?: React.ReactNode;
+  icon?: React.ReactNode;
+  style?: React.CSSProperties;
+  onTitleClick?: (e: TitleEventEntity) => void;
+  onTitleMouseEnter?: (e: TitleEventEntity) => void;
+  onTitleMouseLeave?: (e: TitleEventEntity) => void;
+  popupOffset?: [number, number];
+  popupClassName?: string;
+}
+
+class SubMenu extends React.Component<SubMenuProps, any> {
+  static contextType = MenuContext;
+  static isSubMenu = 1;
+
+  renderTitle(inlineCollapsed: boolean | undefined) {
+    const { icon, title, level, rootPrefixCls } = this.props;
+    if (!icon) {
+      return inlineCollapsed &&
+        level === 1 &&
+        title &&
+        typeof title === "string" ? (
+        <div className={`${rootPrefixCls}-inline-collapsed-noicon`}>
+          {title.charAt(0)}
+        </div>
+      ) : (
+        <div className={`${rootPrefixCls}-item-content`}>{title}</div>
+      );
+    }
+
+    const titleIsSpan = isValidElement(title) && title.type === "span";
     return (
       <>
-        {itemIcon && (
-          <span className={iconSpanClassNames}>
-            {cloneElement(itemIcon, {
-              className: classNames(
-                isValidElement(itemIcon) ? itemIcon.props?.className : ""
-              ),
-            })}
+        {icon && (
+          <span className={classNames(`${rootPrefixCls}-item-icon svg-icon`)}>
+            {icon}
           </span>
         )}
-        {
-          <span
-            className={classNames(
-              rootPrefixCls && `${rootPrefixCls}-item-content`
-            )}
-          >
-            {title}
-          </span>
-        }
+        <div className={`${rootPrefixCls}-item-content`}>
+          {titleIsSpan ? title : <span>{title}</span>}
+        </div>
       </>
     );
-  }, [title, itemIcon, rootPrefixCls]);
+  }
 
-  const subMenuClassNames = classNames(
-    className,
-    variant && `bg-${variant} hoverable text-inverse-${variant}`
-  );
-
-  return (
-    <RcSubMenu
-      className={subMenuClassNames}
-      rootPrefixCls={rootPrefixCls}
-      title={renderTitle()}
-      {...restProps}
-    >
-      {children}
-    </RcSubMenu>
-  );
-};
+  render() {
+    const { rootPrefixCls, popupClassName } = this.props;
+    return (
+      <MenuContext.Consumer>
+        {({ inlineCollapsed, theme }) => (
+          <RcSubMenu
+            {...omit(this.props, ["icon"])}
+            title={this.renderTitle(inlineCollapsed)}
+            popupClassName={classNames(
+              rootPrefixCls,
+              `${rootPrefixCls}-${theme}`,
+              popupClassName
+            )}
+          />
+        )}
+      </MenuContext.Consumer>
+    );
+  }
+}
 
 export default SubMenu;

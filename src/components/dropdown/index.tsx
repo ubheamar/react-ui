@@ -32,17 +32,19 @@ const Dropdown: Dropdown = forwardRef(
     { placement, overlayClassName, trigger, prefixCls, children, ...props },
     ref
   ) => {
-    const { rtl } = useAppConfig();
+    const { direction } = useAppConfig();
     let newPlacement: string | undefined = placement;
     if (placement) {
       if (placement.indexOf("Start") != -1) {
-        newPlacement = rtl
-          ? placement.replace("Start", "Right")
-          : placement.replace("Start", "Left");
+        newPlacement =
+          direction == "rtl"
+            ? placement.replace("Start", "Right")
+            : placement.replace("Start", "Left");
       } else if (placement.indexOf("End") != -1) {
-        newPlacement = rtl
-          ? placement.replace("End", "Left")
-          : placement.replace("End", "Right");
+        newPlacement =
+          direction == "rtl"
+            ? placement.replace("End", "Left")
+            : placement.replace("End", "Right");
       }
     }
     // overlayClassName = classNames(overlayClassName, `placement-${placement}`);

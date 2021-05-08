@@ -18,13 +18,14 @@
     }
   }
   @if ($arrow-color!=null) {
-    > .menu-submenu-title > .menu-submenu-arrow:after {
-      /*rtl:begin:ignore*/
+    > .menu-submenu-title > .menu-submenu-arrow {
+      color: $arrow-color;
+      /*!*rtl:begin:ignore*!
       @include svg-bg-icon(arrow-end, $arrow-color);
-      /*rtl:end:ignore*/
+      !*rtl:end:ignore*!
       [dir="rtl"] & {
         @include svg-bg-icon(arrow-start, $arrow-color);
-      }
+      }*/
     }
   }
 }
@@ -38,5 +39,87 @@
 
   [direction="rtl"] & {
     transform: rotateZ($angleRtl) translateY($translate) #{"/*rtl:ignore*/"};
+  }
+}
+
+@mixin menu-theme(
+  $menu-bg,
+  $menu-color,
+  $menu-icon,
+  $menu-item-active-bg,
+  $menu-item-active-title,
+  $menu-item-active-icon,
+  $menu-item-active-arrow,
+  $menu-item-selected-bg,
+  $menu-item-selected-title,
+  $menu-item-selected-icon,
+  $menu-item-selected-arrow,
+  $menu-inline-bg,
+  $menu-inline-color,
+  $menu-group-title-color
+) {
+  &.menu,
+  &.menu-submenu {
+    background: $menu-bg;
+    color: $menu-color;
+  }
+
+  .menu-item-group {
+    > .menu-item-group-title {
+      color: $menu-group-title-color;
+    }
+  }
+
+  .menu-item {
+    &.menu-item-disabled {
+      opacity: $menu-item-disabled-opacity;
+    }
+
+    &:not(.menu-item-disabled).menu-item-active {
+      @include menu-item-theme(
+        $menu-item-active-title,
+        $menu-item-active-icon,
+        $menu-item-active-arrow,
+        $menu-item-active-bg
+      );
+    }
+    &:not(.menu-item-disabled).menu-item-selected {
+      @include menu-item-theme(
+        $menu-item-selected-title,
+        $menu-item-selected-icon,
+        $menu-item-selected-arrow,
+        $menu-item-selected-bg
+      );
+    }
+  }
+  .menu-submenu {
+    &.menu-submenu-disabled {
+      opacity: $menu-item-disabled-opacity;
+    }
+
+    &:not(.menu-submenu-disabled).menu-submenu-active > .menu-submenu-title {
+      @include menu-item-theme(
+        $menu-item-active-title,
+        $menu-item-active-icon,
+        $menu-item-active-arrow,
+        $menu-item-active-bg
+      );
+    }
+    &:not(.menu-submenu-disabled).menu-submenu-selected > .menu-submenu-title {
+      @include menu-item-theme(
+        $menu-item-selected-title,
+        $menu-item-selected-icon,
+        $menu-item-selected-arrow,
+        $menu-item-selected-bg
+      );
+    }
+  }
+  .menu-item-icon {
+    color: $menu-icon;
+  }
+
+  .menu.menu-sub.menu-inline {
+    background: $menu-inline-bg;
+    color: $menu-inline-color;
   }
 }
