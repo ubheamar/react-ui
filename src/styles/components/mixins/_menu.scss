@@ -29,11 +29,14 @@
   }
 }
 
-@mixin menu-item-arrow-rotate($angle, $angleRtl) {
+@mixin menu-item-arrow-rotate($angle, $angleRtl, $translate: null) {
   transform: rotateZ($angle) #{"/*rtl:ignore*/"};
   transition: transform 0.3s ease;
+  @if ($translate!= null) {
+    transform: rotateZ($angle) translateY($translate) #{"/*rtl:ignore*/"};
+  }
 
   [direction="rtl"] & {
-    transform: rotateZ($angleRtl) #{"/*rtl:ignore*/"};
+    transform: rotateZ($angleRtl) translateY($translate) #{"/*rtl:ignore*/"};
   }
 }

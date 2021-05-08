@@ -76,6 +76,13 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   mode: "vertical",
-  variant: "danger",
-  iconVariant: "text-success",
+  variant: undefined,
+  bgColor: "success",
+  textColor: undefined,
+  bgActiveColor: undefined,
+  textActiveColor: undefined,
+  iconActiveColor: undefined,
+  bgSelectedColor: undefined,
+  textSelectedColor: undefined,
+  iconSelectedColor: undefined,
 };

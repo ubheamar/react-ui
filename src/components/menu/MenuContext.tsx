@@ -1,11 +1,8 @@
 import React, { FC, useContext, useState } from "react";
-import { ColorsVariant } from "../../utils/types";
 
-interface MenuContextType {
-  variant?: ColorsVariant;
-  iconVariant?: string;
-  iconActiveVariant?: string;
-}
+import { MenuColorProps } from "./index";
+
+export interface MenuContextType extends MenuColorProps {}
 const MenuContext = React.createContext<Partial<MenuContextType>>({});
 MenuContext.displayName = "MenuContext";
 

@@ -6,16 +6,19 @@ import React, { FC, isValidElement, useCallback } from "react";
 import { cloneElement } from "../../utils/reactNode";
 import classNames from "classnames";
 import { ChevronRight } from "react-bootstrap-icons";
+import { useMenuConfig } from "./MenuContext";
 
 export interface SubMenuProps extends Omit<RcSubMenuProps, ""> {}
 
 const SubMenu: FC<SubMenuProps> = ({
+  className,
   rootPrefixCls,
   title,
   itemIcon,
   children,
   ...restProps
 }: SubMenuProps) => {
+  const { variant } = useMenuConfig();
   const renderTitle = useCallback(() => {
     const iconSpanClassNames = classNames(
       "svg-icon",
@@ -44,8 +47,15 @@ const SubMenu: FC<SubMenuProps> = ({
       </>
     );
   }, [title, itemIcon, rootPrefixCls]);
+
+  const subMenuClassNames = classNames(
+    className,
+    variant && `bg-${variant} hoverable text-inverse-${variant}`
+  );
+
   return (
     <RcSubMenu
+      className={subMenuClassNames}
       rootPrefixCls={rootPrefixCls}
       title={renderTitle()}
       {...restProps}

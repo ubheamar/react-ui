@@ -6,41 +6,76 @@ import { MenuItemProps } from "./MenuItem";
 import SubMenu, { SubMenuProps } from "./SubMenu";
 import classNames from "classnames";
 import Divider from "./Divider";
-import { ColorsVariant } from "../../utils/types";
-import MenuContext, { MenuProvider } from "./MenuContext";
+import { ColorsVariant, TextVariant } from "../../utils/types";
+import MenuContext, { MenuContextType } from "./MenuContext";
 
 export interface MenuComposition {
   Item: typeof MenuItem;
   SubMenu: typeof SubMenu;
   Divider: typeof Divider;
 }
-export interface MenuProps extends RcMenuProps {
+export interface MenuColorProps {
   variant?: ColorsVariant;
-  iconVariant?: string;
-  iconActiveVariant?: string;
+  bgColor?: ColorsVariant;
+  textColor?: TextVariant;
+  iconColor?: TextVariant;
+  bgActiveColor?: ColorsVariant;
+  textActiveColor?: TextVariant;
+  iconActiveColor?: TextVariant;
+  bgSelectedColor?: ColorsVariant;
+  textSelectedColor?: TextVariant;
+  iconSelectedColor?: TextVariant;
 }
+export interface MenuProps extends RcMenuProps, MenuColorProps {}
 
 const Menu: FC<MenuProps> & MenuComposition = ({
+  activeKey,
   variant,
-  iconVariant,
-  iconActiveVariant,
+  bgColor,
+  textColor,
+  iconColor,
+  bgActiveColor,
+  textActiveColor,
+  iconActiveColor,
+  bgSelectedColor,
+  textSelectedColor,
+  iconSelectedColor,
   className,
   children,
   ...restProps
 }) => {
   const menuClassName = classNames(
-    variant && `bg-${variant} text-inverse-${variant}`,
+    //variant && `bg-${variant} text-inverse-${variant}`,
     className
   );
   // debugger;
   const [config, setConfig] = useState<MenuContextType>({
     variant,
-    iconVariant,
-    iconActiveVariant,
+    bgColor,
+    textColor,
+    iconColor,
+    bgActiveColor,
+    textActiveColor,
+    iconActiveColor,
+    bgSelectedColor,
+    textSelectedColor,
+    iconSelectedColor,
   });
   React.useEffect(() => {
     setConfig(config);
-  }, [config, setConfig]);
+  }, [
+    variant,
+    bgColor,
+    textColor,
+    iconColor,
+    bgActiveColor,
+    textActiveColor,
+    iconActiveColor,
+    bgSelectedColor,
+    textSelectedColor,
+    iconSelectedColor,
+    setConfig,
+  ]);
 
   return (
     <MenuContext.Provider value={config}>
