@@ -1,0 +1,30 @@
+.flex-root {
+  flex: 1;
+}
+
+.flex-column-auto {
+  flex: none;
+}
+
+.flex-column-fluid {
+  flex: 1 0 auto;
+}
+
+.flex-row-auto {
+  flex: 0 0 auto;
+}
+
+.flex-row-fluid {
+  flex: 1 auto;
+  min-width: 0;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-stack {
+  justify-content: space-between;
+  align-items: center;
+}

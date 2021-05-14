@@ -1,0 +1,60 @@
+@mixin select-selector() {
+  display: block;
+  width: 100%;
+  padding: $select-padding-y $select-indicator-padding $select-padding-y
+    $select-padding-x;
+  font-family: $select-font-family;
+  @include font-size($select-font-size);
+  font-weight: $select-font-weight;
+  line-height: $select-line-height;
+  color: $select-color;
+  background-color: $select-bg;
+  border: $select-border-width solid $select-border-color;
+  @include border-radius($select-border-radius, 0);
+  @include box-shadow($select-box-shadow);
+  appearance: none;
+
+  input {
+    cursor: pointer;
+  }
+
+  .#{select-prefix}-show-search#{&} {
+    cursor: text;
+
+    input {
+      cursor: auto;
+    }
+  }
+}
+
+/* Reset search input style */
+@mixin select-search-input-without-border() {
+  .#{$select-prefix}-selection-search-input {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    appearance: none;
+
+    &::-webkit-search-cancel-button {
+      display: none;
+      -webkit-appearance: none;
+    }
+  }
+}
+@mixin select-hover() {
+  border-color: $select-focus-border-color;
+  outline: 0;
+  @if $enable-shadows {
+    @include box-shadow($select-box-shadow, $select-focus-box-shadow);
+  } @else {
+    box-shadow: $select-focus-box-shadow;
+  }
+}
+
+@mixin select-item() {
+  position: relative;
+  display: block;
+  padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+}

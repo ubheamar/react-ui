@@ -12,6 +12,7 @@ import {
   Tooltip,
   TooltipProps,
 } from "react-bootstrap";
+import SelectableContext from "react-bootstrap/SelectableContext";
 
 export interface MenuItemProps extends Omit<RcMenuItemProps, "title"> {
   icon?: React.ReactNode;
@@ -45,7 +46,7 @@ export default class MenuItem extends React.Component<MenuItemProps> {
 
   renderItem = ({ siderCollapsed }: SiderContextProps) => {
     const { level, className, children, rootPrefixCls } = this.props;
-    const { title, icon, iconSpanClass, danger, ...rest } = this.props;
+    const { title, icon, iconSpanClass, danger, onClick, ...rest } = this.props;
 
     return (
       <MenuContext.Consumer>
@@ -75,35 +76,47 @@ export default class MenuItem extends React.Component<MenuItemProps> {
               >
                 <Tooltip id={tooltipProps.id}> {tooltipProps.children}</Tooltip>
               </Overlay>
-              <Item
-                ref={this.menuRef}
-                {...rest}
-                className={classNames(
-                  {
-                    [`${rootPrefixCls}-item-danger`]: danger,
-                    [`${rootPrefixCls}-item-only-child`]:
-                      (icon ? childrenLength + 1 : childrenLength) === 1,
-                  },
-                  className
-                )}
-                title={title}
-              >
-                {icon && (
-                  <span
-                    className={classNames(
-                      `${rootPrefixCls}-item-icon svg-icon`,
-                      iconSpanClass
-                    )}
-                  >
-                    {cloneElement(icon, {
-                      className: classNames(
-                        isValidElement(icon) ? icon.props?.className : ""
-                      ),
-                    })}
-                  </span>
-                )}
-                {this.renderItemChildren(inlineCollapsed)}
-              </Item>
+              <SelectableContext.Consumer>
+                {(onSelectCtx) => {
+                  const handleCallback = (event: any) => {
+                    if (onSelectCtx) onSelectCtx("", event);
+                    if (onClick) onClick(event);
+                  };
+
+                  return (
+                    <Item
+                      ref={this.menuRef}
+                      onClick={handleCallback}
+                      {...rest}
+                      className={classNames(
+                        {
+                          [`${rootPrefixCls}-item-danger`]: danger,
+                          [`${rootPrefixCls}-item-only-child`]:
+                            (icon ? childrenLength + 1 : childrenLength) === 1,
+                        },
+                        className
+                      )}
+                      title={title}
+                    >
+                      {icon && (
+                        <span
+                          className={classNames(
+                            `${rootPrefixCls}-item-icon svg-icon`,
+                            iconSpanClass
+                          )}
+                        >
+                          {cloneElement(icon, {
+                            className: classNames(
+                              isValidElement(icon) ? icon.props?.className : ""
+                            ),
+                          })}
+                        </span>
+                      )}
+                      {this.renderItemChildren(inlineCollapsed)}
+                    </Item>
+                  );
+                }}
+              </SelectableContext.Consumer>
             </>
           );
         }}

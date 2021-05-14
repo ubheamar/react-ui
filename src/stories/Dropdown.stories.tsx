@@ -9,7 +9,6 @@ import {
   ShieldLock,
 } from "react-bootstrap-icons";
 import { Button, Col, Dropdown } from "../index";
-import { Row } from "react-bootstrap";
 
 export default {
   title: "Component/Dropdown",
@@ -18,7 +17,7 @@ export default {
 
 const renderMenu = (args: MenuProps) => {
   return (
-    <Menu prefix="menu" {...args}>
+    <Menu {...args}>
       <Menu.ItemGroup title="Components">
         <Menu.Item key="profile-name" icon={<Gear />}>
           Profile
@@ -26,14 +25,12 @@ const renderMenu = (args: MenuProps) => {
         <Menu.Item key="settings" icon={<Gear />}>
           Settings
         </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item icon={<ShieldLock />} key="logout">
-          Logout
-        </Menu.Item>
       </Menu.ItemGroup>
-
+      <Menu.Item icon={<ShieldLock />} key="logout">
+        Logout
+      </Menu.Item>
       <Menu.Item icon={<App />} title="profile_title" key="profile" disabled>
-        Profile
+        System
       </Menu.Item>
       <Menu.SubMenu icon={<CreditCard />} title="Subscription">
         <Menu.Item key="referrals">Referrals</Menu.Item>
@@ -58,12 +55,14 @@ const renderMenu = (args: MenuProps) => {
 const Template: Story<MenuProps> = (args) => {
   return (
     <div>
-      <Dropdown
-        overlay={renderMenu({
-          mode: "vertical",
-        })}
-      >
-        <Button variant="light-primary">Button Dropdown</Button>
+      <Dropdown>
+        <Dropdown.Toggle>Click</Dropdown.Toggle>
+        <Dropdown.Menu>
+          {renderMenu({
+            mode: "vertical",
+          })}
+          {/*<div>Hello</div>*/}
+        </Dropdown.Menu>
       </Dropdown>
     </div>
   );

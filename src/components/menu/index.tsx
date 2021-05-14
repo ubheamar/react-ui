@@ -1,6 +1,6 @@
 //source:antd menu refer
 import RcMenu, { ItemGroup, MenuProps as RcMenuProps } from "rc-menu";
-import React, { FC, useState } from "react";
+import React, { FC, forwardRef, useState } from "react";
 import Item from "./MenuItem";
 import { MenuItemProps } from "./MenuItem";
 import SubMenu, { SubMenuProps } from "./SubMenu";
@@ -99,13 +99,35 @@ class InternalMenu extends React.Component<InternalMenuProps> {
 }
 
 // We should keep this as ref-able
+export interface MenuComposition
+  extends React.ForwardRefExoticComponent<
+    MenuProps & React.RefAttributes<any>
+  > {
+  Item: typeof Item;
+  SubMenu: typeof SubMenu;
+  Divider: typeof Divider;
+  ItemGroup: typeof ItemGroup;
+}
+const Menu = forwardRef<InternalMenu, MenuProps>((props, ref) => {
+  return (
+    <SiderContext.Consumer>
+      {(context: SiderContextProps) => (
+        <InternalMenu ref={ref} {...props} {...context} />
+      )}
+    </SiderContext.Consumer>
+  );
+}) as MenuComposition;
+
+Menu.Item = Item;
+Menu.SubMenu = SubMenu;
+Menu.Divider = Divider;
+Menu.ItemGroup = ItemGroup;
+
+/*
 class Menu extends React.Component<MenuProps, {}> {
   static Divider = Divider;
-
   static Item = Item;
-
   static SubMenu = SubMenu;
-
   static ItemGroup = ItemGroup;
 
   render() {
@@ -118,6 +140,7 @@ class Menu extends React.Component<MenuProps, {}> {
     );
   }
 }
+*/
 
 export { MenuTheme, SubMenuProps, MenuItemProps };
 

@@ -1,67 +1,33 @@
-import React, { forwardRef } from "react";
-import {
-  BaseComponentPropsWithChildren,
-  BaseRefForwardingComponent,
-  tuple,
-} from "../../types";
-import RcDropdown from "rc-dropdown";
-import { DropdownProps as RcDropdownProps } from "rc-dropdown/lib/Dropdown";
-import { useAppConfig } from "../config";
-import classNames from "classnames";
+//ref from bootstrap dropdown
+import React, { forwardRef, isValidElement, ReactNode } from "react";
+import BsDropdown, {
+  DropdownProps as BsDropdownProps,
+} from "react-bootstrap/Dropdown";
 
-const Placements = tuple(
-  "topStart",
-  "topCenter",
-  "topEnd",
-  "bottomStart",
-  "bottomCenter",
-  "bottomEnd"
-);
-type Placement = typeof Placements[number];
+import { BsPrefixRefForwardingComponent } from "react-bootstrap/helpers";
+import BsDropdownItem from "react-bootstrap/DropdownItem";
+//import BsDropdownMenu from "react-bootstrap/DropdownMenu";
+import BsDropdownToggle from "react-bootstrap/DropdownToggle";
+import DropdownMenu from "./DropdownMenu";
 
-export interface DropdownProps
-  extends Omit<RcDropdownProps, "placement" | "trigger" | "animation"> {
-  placement?: Placement;
-  trigger?: ("click" | "hover" | "contextMenu")[];
-}
+export interface DropdownProps extends BsDropdownProps {}
 
-type Dropdown = BaseRefForwardingComponent<"div", DropdownProps>;
+const Dropdown: BsPrefixRefForwardingComponent<
+  "div",
+  DropdownProps
+> = React.forwardRef<HTMLElement, DropdownProps>((pProps, ref) => {
+  return <BsDropdown ref={ref} {...pProps} />;
+});
 
-const Dropdown: Dropdown = forwardRef(
-  (
-    { placement, overlayClassName, trigger, prefixCls, children, ...props },
-    ref
-  ) => {
-    const { direction } = useAppConfig();
-    let newPlacement: string | undefined = placement;
-    if (placement) {
-      if (placement.indexOf("Start") != -1) {
-        newPlacement =
-          direction == "rtl"
-            ? placement.replace("Start", "Right")
-            : placement.replace("Start", "Left");
-      } else if (placement.indexOf("End") != -1) {
-        newPlacement =
-          direction == "rtl"
-            ? placement.replace("End", "Left")
-            : placement.replace("End", "Right");
-      }
-    }
-    // overlayClassName = classNames(overlayClassName, `placement-${placement}`);
+Dropdown.displayName = "Dropdown";
 
-    return (
-      <RcDropdown
-        trigger={trigger}
-        placement={newPlacement}
-        overlayClassName={overlayClassName}
-        prefixCls={prefixCls || "dropdown"}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </RcDropdown>
-    );
-  }
-);
+export default Object.assign(Dropdown, {
+  Toggle: BsDropdownToggle,
+  Menu: DropdownMenu,
+  Item: BsDropdownItem,
+  ItemText: BsDropdown.ItemText,
+  Divider: BsDropdown.Divider,
+  Header: BsDropdown.Header,
+});
 
-export default Dropdown;
+//export default Dropdown;

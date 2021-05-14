@@ -1,7 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 import { DirectionType } from "../config";
 
-export type MenuTheme = "default" | string;
+export type MenuTheme = "default" | "dark" | string;
 
 export interface MenuContextType {
   inlineCollapsed: boolean;

@@ -15,10 +15,12 @@
     "rc-dropdown": "^3.2.0",
     "rc-menu": "^8.10.7",
     "rc-motion": "^2.4.1",
+    "rc-pagination": "^3.1.6",
     "rc-select": "^12.1.10",
     "rc-util": "^5.9.8",
     "react-bootstrap": "^2.0.0-alpha.1",
     "react-bootstrap-icons": "^1.4.0",
+    "react-overlays": "^5.0.1",
     "react-table": "^7.6.3",
     "react-toastify": "^7.0.4"
   },

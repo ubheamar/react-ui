@@ -41,8 +41,8 @@
     transform: rotateZ($angleRtl) translateY($translate) #{"/*rtl:ignore*/"};
   }
 }
-
 @mixin menu-theme(
+  $name,
   $menu-bg,
   $menu-color,
   $menu-icon,
@@ -56,7 +56,50 @@
   $menu-item-selected-arrow,
   $menu-inline-bg,
   $menu-inline-color,
-  $menu-group-title-color
+  $menu-group-title-color,
+  $menu-divider
+) {
+  .menu-#{$name} {
+    @include build-menu-theme(
+      $menu-bg,
+      $menu-color,
+      $menu-icon,
+      $menu-item-active-bg,
+      $menu-item-active-title,
+      $menu-item-active-icon,
+      $menu-item-active-arrow,
+      $menu-item-selected-bg,
+      $menu-item-selected-title,
+      $menu-item-selected-icon,
+      $menu-item-selected-arrow,
+      $menu-inline-bg,
+      $menu-inline-color,
+      $menu-group-title-color,
+      $menu-divider
+    );
+  }
+  .dropdown-theme-#{$name} {
+    background: $menu-bg;
+    color: $menu-color;
+  }
+}
+
+@mixin build-menu-theme(
+  $menu-bg,
+  $menu-color,
+  $menu-icon,
+  $menu-item-active-bg,
+  $menu-item-active-title,
+  $menu-item-active-icon,
+  $menu-item-active-arrow,
+  $menu-item-selected-bg,
+  $menu-item-selected-title,
+  $menu-item-selected-icon,
+  $menu-item-selected-arrow,
+  $menu-inline-bg,
+  $menu-inline-color,
+  $menu-group-title-color,
+  $menu-divider
 ) {
   &.menu,
   &.menu-submenu {
@@ -116,6 +159,9 @@
   }
   .menu-item-icon {
     color: $menu-icon;
+  }
+  .separator {
+    border-color: $menu-divider;
   }
 
   .menu.menu-sub.menu-inline {

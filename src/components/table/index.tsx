@@ -28,12 +28,13 @@ import {
   NoRecordsFound,
   PleaseWait,
 } from "./TableHelper";
-import Paginator, { PageSize } from "../paginator";
+
 import { ArrowDownShort, ArrowUpShort } from "react-bootstrap-icons";
 import classNames from "classnames";
 import buildQueryString from "../../utils/buildQueryString";
 import { BaseRefForwardingComponent } from "../../types";
 import { TableFilterPopupProps } from "./TableFilterPopup";
+import { Pagination } from "../../index";
 
 export interface TableChangeParams {
   pageSize?: number;
@@ -59,7 +60,7 @@ export interface TableProps {
   loading: boolean;
   totalRecords?: number | undefined;
   serverSideOperations?: boolean;
-  pageSizeList?: PageSize[];
+  pageSizeList?: [];
   onSelectionChange?: (
     selectedRowIds: Record<string, boolean>,
     selectedFlatRows: Row<{}>[]
@@ -158,7 +159,7 @@ const Table: Table = forwardRef(
     const changePage = useCallback((pageNumber: number) => {
       gotoPage(pageNumber - 1);
     }, []);
-    const changePageSize = useCallback((pageSize: number) => {
+    const changePageSize = useCallback((current: number, pageSize: number) => {
       setPageSize(pageSize);
     }, []);
 
@@ -182,11 +183,12 @@ const Table: Table = forwardRef(
     // Render the UI for your table
     return (
       <Fragment>
-        <div className="table-responsive">
+        <div>
           <BsTable
             {...getTableProps()}
             hover
-            className="align-middle table-row-dashed fs-6 gy-5 gs-5"
+            className="align-middle table-row-dashed gs-2 gy-2 "
+            responsive
           >
             <thead>
               {headerGroups.map((headerGroup) => (
@@ -239,15 +241,13 @@ const Table: Table = forwardRef(
         {showLoadingIndicator && (
           <PleaseWait loading={loading} entities={data} />
         )}
-        <Paginator
-          currentPage={pageIndex + 1}
-          showCount={5}
-          limit={pageSize}
-          totalCount={totalRecords}
-          onPage={changePage}
-          pageSizeList={pageSizeList!}
-          onPageSizeChange={changePageSize}
-          loading={loading}
+        <Pagination
+          showTotal={(total) => `Total ${total} items`}
+          defaultCurrent={pageIndex + 3}
+          className="pt-2"
+          total={totalRecords}
+          onChange={changePage}
+          onShowSizeChange={changePageSize}
         />
       </Fragment>
     );
@@ -259,12 +259,5 @@ Table.defaultProps = {
   showRecordsNotFound: true,
   showLoadingIndicator: true,
   data: [],
-  pageSizeList: [
-    { text: "10", value: 10 },
-    { text: "15", value: 15 },
-    { text: "20", value: 20 },
-    { text: "25", value: 25 },
-    { text: "50", value: 50 },
-  ],
 };
 export default Table;

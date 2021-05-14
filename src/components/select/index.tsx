@@ -9,16 +9,18 @@ import {
   BaseRefForwardingComponent,
 } from "../../types";
 
-export interface SelectProps extends BaseComponentPropsWithChildren {}
+export interface SelectProps extends RcSelectProps {}
 
 type Select = BaseRefForwardingComponent<"select", SelectProps>;
 
-const Select: Select = forwardRef(({ children, ...props }, ref) => {
+const Select: Select = forwardRef(({ prefixCls, children, ...props }, ref) => {
   return (
-    <RcSelect ref={ref as any} {...props}>
+    <RcSelect prefixCls={prefixCls || "select"} ref={ref as any} {...props}>
       {children}
     </RcSelect>
   );
 });
 
-export default Select;
+export default Object.assign(Select, {
+  Option: Option,
+});

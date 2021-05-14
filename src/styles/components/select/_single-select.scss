@@ -1,0 +1,40 @@
+.#{$select-prefix}.#{$select-prefix}-single {
+  .#{$select-prefix}-selector {
+    display: flex;
+
+    .#{$select-prefix}-selection-search {
+      position: absolute;
+      top: 0;
+      right: $select-indicator-padding;
+      bottom: 0;
+      left: $select-padding-x;
+      &-input {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .#{$select-prefix}-selection-item,
+  .#{$select-prefix}-selection-placeholder {
+    padding: 0;
+    line-height: $select-line-height;
+    transition: all 0.3s;
+
+    // Firefox inline-block position calculation is not same as Chrome & Safari. Patch this:
+    @supports (-moz-appearance: meterbar) {
+      & {
+        line-height: $select-line-height;
+      }
+    }
+  }
+
+  .#{$select-prefix}-selection-item {
+    position: relative;
+    user-select: none;
+  }
+
+  .#{$select-prefix}-selection-placeholder {
+    pointer-events: none;
+  }
+}

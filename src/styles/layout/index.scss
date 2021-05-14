@@ -5,7 +5,6 @@
 
 .layout {
   display: flex;
-  flex: auto;
   flex-direction: column;
   min-height: 0;
   background-color: get($layout-config, default, bg-color);

@@ -1,0 +1,118 @@
+.#{$select-prefix} {
+  position: relative;
+  display: block;
+
+  @include reset();
+
+  &:not(&-customize-input) &-selector {
+    @include select-selector();
+    @include select-search-input-without-border();
+  }
+
+  &:not(&-disabled).#{$select-prefix}-focused &-selector {
+    @include select-hover();
+  }
+
+  // ======================== Selection ========================
+  &-selection-item {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  // ======================= Placeholder =======================
+  &-selection-placeholder {
+    flex: 1;
+    overflow: hidden;
+    color: $input-placeholder-color;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    pointer-events: none;
+  }
+
+  // ========================== Arrow ==========================
+  &.#{$select-prefix}-show-arrow &-selector {
+    background-image: escape-svg($select-indicator);
+    background-repeat: no-repeat;
+    background-position: $select-bg-position;
+    background-size: $select-bg-size;
+  }
+  // ========================== Popup ==========================
+  &-dropdown {
+    @include reset();
+    position: absolute;
+    background: $dropdown-bg;
+    color: $dropdown-color;
+    z-index: $zindex-dropdown;
+    padding: $dropdown-padding-y $dropdown-padding-x;
+    box-shadow: $dropdown-box-shadow;
+
+    outline: none;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &-hidden {
+      display: none;
+    }
+    &-empty {
+      color: $select-item-disabled-color;
+    }
+  }
+  &-item-empty {
+    @include select-item();
+    color: $select-item-disabled-color;
+  }
+  &-item {
+    @include select-item();
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    // =========== Group ============
+    &-group {
+      color: $secondary;
+      font-size: $font-size-sm;
+      cursor: default;
+    }
+
+    // =========== Option ===========
+    &-option {
+      display: flex;
+
+      &-content {
+        flex: auto;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &-state {
+        flex: none;
+      }
+
+      &-active:not(&-disabled) {
+        background-color: $select-item-active-bg;
+        color: $select-item-active-color;
+      }
+
+      &-selected:not(&-disabled) {
+        color: $select-item-selected-color;
+        background-color: $select-item-selected-bg;
+
+        .#{$select-prefix}-item-option-state {
+          color: $primary;
+        }
+      }
+
+      &-disabled {
+        color: $select-item-disabled-color;
+        cursor: not-allowed;
+      }
+    }
+  }
+  &-borderless &-selector {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+}

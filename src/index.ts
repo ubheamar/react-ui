@@ -18,6 +18,7 @@ import AppConfigProvider from "./components/config";
 import Select, { SelectProps } from "./components/select";
 import Separator, { SeparatorProps } from "./components/separator";
 import Dropdown, { DropdownProps } from "./components/dropdown";
+import Pagination, { PaginationProps } from "./components/pagination";
 //import { useAppConfig } from "./components/config/AppConfigContext";
 
 /*import Table, { TableProps } from "antd/lib/table";*/
@@ -57,5 +58,8 @@ export type { SelectProps };
 
 export { Separator };
 export { SeparatorProps };
+
+export { Pagination };
+export type { PaginationProps };
 
 export * from "react-toastify";

@@ -1,0 +1,95 @@
+.#{$pagination-prefix} {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  @include list-unstyled();
+
+  > li {
+    display: flex;
+    align-items: center;
+    margin-bottom: $pagination-item-space;
+
+    margin-right: $pagination-item-space#{"/*rtl:ignore*/"};
+    [dir="rtl"] & {
+      margin-left: $pagination-item-space #{"/*rtl:ignore*/"};
+    }
+  }
+
+  &-prev,
+  &-next,
+  &-item,
+  &-jump-prev,
+  &-jump-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: $pagination-font-weight;
+    margin-bottom: $pagination-item-space;
+
+    @include transition($pagination-transition);
+
+    &:not(.#{$pagination-prefix}-disabled) {
+      cursor: pointer;
+    }
+  }
+
+  &-prev,
+  &-next {
+    i {
+      font-size: $pagination-item-icon-font-size;
+    }
+    .previous,
+    .next {
+      display: block;
+      height: $pagination-item-icon-height;
+      width: $pagination-item-icon-height;
+    }
+  }
+
+  //
+  //Theme
+  //
+  @include pagination-theme(
+    $pagination-item-bg,
+    $pagination-item-color,
+    $pagination-item-border-color,
+    $pagination-item-hover-bg,
+    $pagination-item-hover-color,
+    $pagination-item-hover-border-color,
+    $pagination-item-active-bg,
+    $pagination-item-active-color,
+    $pagination-item-active-border-color,
+    $pagination-item-disabled-bg,
+    $pagination-item-disabled-color,
+    $pagination-item-disabled-border-color
+  );
+
+  @include pagination-size(
+    $pagination-padding-y,
+    $pagination-padding-x,
+    null,
+    $pagination-border-radius,
+    $pagination-item-height
+  );
+}
+
+//
+// Sizing
+//
+.pagination-lg {
+  @include pagination-size(
+    $pagination-padding-y-lg,
+    $pagination-padding-x-lg,
+    $font-size-lg,
+    $pagination-border-radius-lg
+  );
+}
+
+.pagination-sm {
+  @include pagination-size(
+    $pagination-padding-y-sm,
+    $pagination-padding-x-sm,
+    $font-size-sm,
+    $pagination-border-radius-sm
+  );
+}

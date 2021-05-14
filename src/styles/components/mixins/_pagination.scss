@@ -1,0 +1,90 @@
+// Pagination
+
+@mixin pagination-size(
+  $padding-y,
+  $padding-x,
+  $font-size,
+  $border-radius,
+  $height: null
+) {
+  .#{$pagination-prefix}-prev,
+  .#{$pagination-prefix}-next,
+  .#{$pagination-prefix}-item,
+  .#{$pagination-prefix}-jump-prev,
+  .#{$pagination-prefix}-jump-next {
+    padding: $padding-y $padding-x;
+    border-radius: $border-radius;
+    @include font-size($font-size);
+    @if ($height) {
+      min-width: $height;
+      height: $height;
+    }
+  }
+}
+
+@mixin pagination-theme(
+  $bg,
+  $color,
+  $border,
+  $hover-bg,
+  $hover-color,
+  $hover-border,
+  $active-bg,
+  $active-color,
+  $active-border,
+  $disabled-bg,
+  $disabled-color,
+  $disabled-border
+) {
+  .#{$pagination-prefix}-prev,
+  .#{$pagination-prefix}-next,
+  .#{$pagination-prefix}-item,
+  .#{$pagination-prefix}-jump-prev,
+  .#{$pagination-prefix}-jump-next {
+    background: $bg;
+    color: $color;
+    border-color: $border;
+
+    &:hover:not(.#{$pagination-prefix}-disabled):not(.#{$pagination-prefix}-item-active) {
+      background: $hover-bg;
+      color: $hover-color;
+      border: $hover-border;
+    }
+
+    &.#{$pagination-prefix}-item-active {
+      background: $active-bg;
+      color: $active-color;
+      border-color: $active-border;
+    }
+
+    &.#{$pagination-prefix}-disabled {
+      background: $disabled-bg;
+      color: $disabled-color;
+      border-color: $disabled-border;
+    }
+  }
+  //Arrow icon theme
+  .#{$pagination-prefix}-prev,
+  .#{$pagination-prefix}-next {
+    @include arrows-theme($color);
+
+    &:hover:not(.#{$pagination-prefix}-disabled) {
+      @include arrows-theme($hover-color);
+    }
+    &.#{$pagination-prefix}-disabled {
+      @include arrows-theme($disabled-color);
+    }
+  }
+}
+
+@mixin arrows-theme($color) {
+  i {
+    color: $color;
+  }
+  .previous {
+    @include svg-bg-icon(arrow-start, $color);
+  }
+  .next {
+    @include svg-bg-icon(arrow-end, $color);
+  }
+}
